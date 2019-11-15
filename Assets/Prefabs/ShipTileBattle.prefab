@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5546957055228784905}
   - component: {fileID: 5546957055228784904}
   - component: {fileID: 5546957055228784906}
-  - component: {fileID: 5546957055228784907}
+  - component: {fileID: 7981993368619051374}
   m_Layer: 0
   m_Name: ShipTileBattle
   m_TagString: Untagged
@@ -108,7 +108,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5546957055228784907
+--- !u!114 &7981993368619051374
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,6 +117,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5546957055228784911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dbec45f0ae142a459bd31ed929a87a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 16f143cf3bc64a348a8a4ea3be2eb48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

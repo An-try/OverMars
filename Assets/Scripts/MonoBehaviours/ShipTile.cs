@@ -2,7 +2,7 @@
 
 namespace OverMars
 {
-    public class ShipTileBattle : MonoBehaviour
+    public class ShipTile : MonoBehaviour
     {
         private SpriteRenderer _spriteRenderer;
         private BoxCollider2D _boxCollider2D;

@@ -7,6 +7,8 @@ namespace OverMars
         [SerializeField] private ShipItem _shipItem;
         [SerializeField] private Transform _tilesContainer;
 
+        public ShipItem ShipItem => _shipItem;
+
         //private List<EquiupmentItem> _equiupmentItems;
 
         private void Start()
@@ -37,16 +39,16 @@ namespace OverMars
                 for (int j = 0; j < size.y; j++)
                 {
                     Vector3 newTilePosition = new Vector3(starterPoint.x + j + 1, starterPoint.y - i + 1, 0);
-                    ShipTileBattle shipTileBattle = Instantiate(_shipItem.TilePrefab, newTilePosition, Quaternion.identity, _tilesContainer).GetComponent<ShipTileBattle>();
+                    ShipTile shipTile = Instantiate(_shipItem.TilePrefab, newTilePosition, Quaternion.identity, _tilesContainer).GetComponent<ShipTile>();
 
-                    int tileCode = int.Parse(_shipItem.CleanTilesCode[tileIndex].ToString());
+                    int tileCode = int.Parse(cleanTilesCode[tileIndex].ToString());
                     if (tileCode == 0)
                     {
-                        shipTileBattle.DeactivateTile();
+                        shipTile.DeactivateTile();
                     }
                     else
                     {
-                        shipTileBattle.ActivateTile((TileTypes)tileCode);
+                        shipTile.ActivateTile((TileTypes)tileCode);
                     }
 
                     tileIndex++;

@@ -25,35 +25,35 @@ namespace OverMars
             _image.sprite = item.Sprite;
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            DragAndDropContainer.SlotUnderCursor = this;
-        }
+        //public void OnPointerEnter(PointerEventData eventData)
+        //{
+        //    DragAndDropController.SlotUnderCursor = this;
+        //}
 
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            DragAndDropContainer.SlotUnderCursor = null;
-        }
+        //public void OnPointerExit(PointerEventData eventData)
+        //{
+        //    DragAndDropController.SlotUnderCursor = null;
+        //}
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            DragAndDropContainer.Instance.AddItemToContainer(this.EquipmentItem);
+            DragAndDropController.Instance.AddItemToContainer(this.EquipmentItem);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            DragAndDropContainer.Instance.UpdateDragAndDropContainerPosition();
+            DragAndDropController.Instance.UpdateDragAndDropContainerPosition();
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            EquipmentItem itemInContainer = DragAndDropContainer.Instance.GetItemInContainer();
+            EquipmentItem itemInContainer = DragAndDropController.Instance.GetItemInContainer();
             if (!itemInContainer)
             {
                 return;
             }
 
-            SlotUI slotUnderCursor = DragAndDropContainer.SlotUnderCursor;
+            SlotUI slotUnderCursor = DragAndDropController.SlotUnderCursor;
             EquipmentItem itemUnderCursor = null;
             if (slotUnderCursor && slotUnderCursor.EquipmentItem)
             {
