@@ -3,7 +3,7 @@
 namespace OverMars
 {
     [CreateAssetMenu(fileName = "New shield", menuName = "Over Mars/Equipment/Shield")]
-    public class ShieldEquipment : MonoBehaviour
+    public class ShieldEquipment : EquipmentItem
     {
         [SerializeField] private float _capacity;
         [SerializeField] private float _recoveryPerSecond;

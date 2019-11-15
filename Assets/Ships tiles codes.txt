@@ -2,10 +2,12 @@
 1 - basic tile
 2 - engine tile
 
-Arrow 3x3
+Arrow 5x3
 010
 010
-121
+010
+111
+020
 
 Tyler 10x8
 00111100

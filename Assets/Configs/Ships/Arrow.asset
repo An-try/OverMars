@@ -16,5 +16,5 @@ MonoBehaviour:
   _description: Ship "Arrow"
   _tilePrefab: {fileID: 5546957055228784911, guid: 73bb8023a09264145b81f5d24dad1359,
     type: 3}
-  _size: {x: 3, y: 3}
-  _tilesCode: 010 010 121
+  _size: {x: 5, y: 3}
+  _tilesCode: 010 010 010 111 020

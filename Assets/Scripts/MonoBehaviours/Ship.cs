@@ -39,13 +39,14 @@ namespace OverMars
                     Vector3 newTilePosition = new Vector3(starterPoint.x + j, starterPoint.y - i, 0);
                     ShipTileBattle shipTileBattle = Instantiate(_shipItem.TilePrefab, newTilePosition, Quaternion.identity, _tilesContainer).GetComponent<ShipTileBattle>();
 
-                    if (_shipItem.CleanTilesCode[tileIndex] == '0')
+                    char tileCode = _shipItem.CleanTilesCode[tileIndex];
+                    if (tileCode == '0')
                     {
                         shipTileBattle.DeactivateTile();
                     }
                     else
                     {
-                        shipTileBattle.ActivateTile();
+                        shipTileBattle.ActivateTile((TileTypes)int.Parse(tileCode.ToString()));
                     }
 
                     tileIndex++;
