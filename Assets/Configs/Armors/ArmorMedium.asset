@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43810dfd3feb90f498aebbb21ecc3031, type: 3}
-  m_Name: SmallArmor
+  m_Name: ArmorMedium
   m_EditorClassIdentifier: 
-  _name: Small armor
-  _description: Small armor plate
-  _sprite: {fileID: 21300000, guid: 7de6281997de53e408196b640467b69c, type: 3}
+  _name: Medium armor
+  _description: Medium armor plate
+  _sprite: {fileID: 21300000, guid: b884954d8b0887b43817e804ec08dd87, type: 3}
   _type: 1
-  _size: {x: 1, y: 1}
+  _size: {x: 2, y: 2}
   _energyConsumption: 0
-  _durability: 50
-  _armor: 2
-  _reflection: 20
-  _mass: 100
+  _durability: 220
+  _armor: 3
+  _reflection: 30
+  _mass: 450

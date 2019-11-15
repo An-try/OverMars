@@ -9,7 +9,7 @@ namespace OverMars
     {
         public static SlotUI SlotUnderCursor;
 
-        [SerializeField] private Image _dragAndDropItem;
+        [SerializeField] private Image _dragAndDropObject;
 
         private EquipmentItem _itemInContainer;
 
@@ -17,7 +17,7 @@ namespace OverMars
         {
             if (_itemInContainer != null)
             {
-                _dragAndDropItem.transform.position = Input.mousePosition;
+                _dragAndDropObject.transform.position = Input.mousePosition;
             }
         }
 
@@ -29,15 +29,16 @@ namespace OverMars
             }
 
             _itemInContainer = item;
-            _dragAndDropItem.sprite = item.Sprite;
-            _dragAndDropItem.enabled = true;
+            _dragAndDropObject.transform.GetComponent<RectTransform>().sizeDelta = item.Sprite.rect.size;
+            _dragAndDropObject.sprite = item.Sprite;
+            _dragAndDropObject.enabled = true;
         }
 
         public void RemoveItemFromContainer()
         {
             _itemInContainer = null;
-            _dragAndDropItem.enabled = false;
-            _dragAndDropItem.sprite = null;
+            _dragAndDropObject.enabled = false;
+            _dragAndDropObject.sprite = null;
         }
 
         public EquipmentItem GetItemInContainer()

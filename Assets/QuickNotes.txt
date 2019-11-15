@@ -1,0 +1,4 @@
+Unity version 2019.2.6f1 LWRP
+
+Plugins:
+	DOTween (HOTween v2) v1.2.280
