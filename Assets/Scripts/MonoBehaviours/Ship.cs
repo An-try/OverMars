@@ -7,7 +7,7 @@ namespace OverMars
         [SerializeField] private ShipItem _shipItem;
         [SerializeField] private Transform _tilesContainer;
 
-        //private List<EquiupmentItem> equiupmentItems;
+        //private List<EquiupmentItem> _equiupmentItems;
 
         private void Start()
         {
@@ -36,17 +36,17 @@ namespace OverMars
             {
                 for (int j = 0; j < size.y; j++)
                 {
-                    Vector3 newTilePosition = new Vector3(starterPoint.x + j, starterPoint.y - i, 0);
+                    Vector3 newTilePosition = new Vector3(starterPoint.x + j + 1, starterPoint.y - i + 1, 0);
                     ShipTileBattle shipTileBattle = Instantiate(_shipItem.TilePrefab, newTilePosition, Quaternion.identity, _tilesContainer).GetComponent<ShipTileBattle>();
 
-                    char tileCode = _shipItem.CleanTilesCode[tileIndex];
-                    if (tileCode == '0')
+                    int tileCode = int.Parse(_shipItem.CleanTilesCode[tileIndex].ToString());
+                    if (tileCode == 0)
                     {
                         shipTileBattle.DeactivateTile();
                     }
                     else
                     {
-                        shipTileBattle.ActivateTile((TileTypes)int.Parse(tileCode.ToString()));
+                        shipTileBattle.ActivateTile((TileTypes)tileCode);
                     }
 
                     tileIndex++;
@@ -61,8 +61,6 @@ namespace OverMars
                 Destroy(_tilesContainer.GetChild(0));
             }
         }
-
-        //private void DetermineOffsetX
 
         #endregion
     }

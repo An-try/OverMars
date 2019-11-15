@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Tyler
   _description: Ship "Tyler"
+  _sprite: {fileID: 0}
   _tilePrefab: {fileID: 5546957055228784911, guid: 73bb8023a09264145b81f5d24dad1359,
     type: 3}
-  _size: {x: 10, y: 8}
-  _tilesCode: 00111100 00111100 01111110 11111111 11111111 01111110 11111111 11111111
-    11122111 11222211
+  _size: {x: 9, y: 7}
+  _tilesCode: 0011100 0111110 1111111 1111111 0111110 1111111 1111111 1122211 1122211
