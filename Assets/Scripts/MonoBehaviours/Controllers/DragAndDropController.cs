@@ -15,7 +15,7 @@ namespace OverMars
 
         private static EquipmentItem _itemInContainer;
 
-        private static List<RaycastResult> raycastResults = new List<RaycastResult>();
+        private List<Vector2Int> _equipmentSlotsUnderDragAndDropObjectArrayIndexes = new List<Vector2Int>();
 
         private protected override void Awake()
         {
@@ -24,20 +24,34 @@ namespace OverMars
             _dragAndDropImage = _dragAndDropOblect.GetComponent<Image>();
         }
 
-        //private void Update()
-        //{
-        //    DetermineSlotUIAboveWhichTheArrowIs();
-        //}
+        private void Update()
+        {
+            DetermineSlotsUIAboveWhichTheDragAndDropObjectIs();
+        }
 
-        //private void DetermineSlotUIAboveWhichTheArrowIs()
-        //{
-        //    if (Input.touches.Length > 0 || Input.GetMouseButton(0))
-        //    {
-        //        GraphicRaycaster graphicRaycaster = new GraphicRaycaster();
-        //        graphicRaycaster.Raycast(new PointerEventData(EventSystem.current), raycastResults);
-        //        SlotUnderCursor
-        //    }
-        //}
+        private void DetermineSlotsUIAboveWhichTheDragAndDropObjectIs()
+        {
+            if (_itemInContainer && SlotUnderCursor && SlotUnderCursor.IsEquipmentSlot)
+            {
+                Vector2Int itemSize = _itemInContainer.Size;
+                Vector2Int equipmentSlotArrayIndexes = SlotUnderCursor.ArrayIndexes;
+                _equipmentSlotsUnderDragAndDropObjectArrayIndexes = new List<Vector2Int>();
+
+                for (int i = 0; i < itemSize.x; i++)
+                {
+                    for (int j = 0; j < itemSize.y; j++)
+                    {
+                        _equipmentSlotsUnderDragAndDropObjectArrayIndexes.Add(new Vector2Int(equipmentSlotArrayIndexes.x + i, equipmentSlotArrayIndexes.y + j));
+                    }
+                }
+
+                EquipmentPanelController.CheckDragAndDropItemForSuitability(_equipmentSlotsUnderDragAndDropObjectArrayIndexes, itemSize);
+            }
+            else
+            {
+                EquipmentPanelController.SetTilesDefaultColor();
+            }
+        }
 
         public static void UpdateDragAndDropContainerPosition()
         {

@@ -6,7 +6,20 @@ namespace OverMars
 {
     public class EquipmentSlotUI : SlotUI
     {
+        private int _id;
+        private Vector2Int _arrayIndexes;
+
+        public bool IsActiveTile => this._image.enabled;
+
+        public override int Id => _id;
+        public override Vector2Int ArrayIndexes => _arrayIndexes;
         public override bool IsEquipmentSlot => true;
+
+        public void SetParameters(int id, Vector2Int arrayIndexes)
+        {
+            _id = id;
+            _arrayIndexes = arrayIndexes;
+        }
 
         public void ActivateTile(TileTypes tileType)
         {
@@ -41,6 +54,16 @@ namespace OverMars
         {
             EquipmentItem = null;
             UpdateSlotUI();
+        }
+
+        public void SetDefaultColor()
+        {
+            _image.color = EquipmentItem ? Color.white : _emptySlotColor;
+        }
+
+        public void SetColor(Color newColor)
+        {
+            _image.color = newColor;
         }
     }
 }

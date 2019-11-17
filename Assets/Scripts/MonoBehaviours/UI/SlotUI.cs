@@ -11,8 +11,10 @@ namespace OverMars
         private protected Image _image;
         
         private Sprite _emptySlotSprite;
-        private Color _emptySlotColor;
+        private protected Color _emptySlotColor;
 
+        public virtual int Id => -1;
+        public virtual Vector2Int ArrayIndexes => new Vector2Int(-1, -1);
         public abstract bool IsEquipmentSlot { get; }
 
         private void Awake()
@@ -90,6 +92,8 @@ namespace OverMars
             {
                 slotUnderCursor.SetItem(itemInContainer);
             }
+
+            EquipmentPanelController.SetTilesDefaultColor();
         }
 
         //private void ReplaceItems(SlotUI slotUnderCursor, EquipmentItem itemInContainer)
