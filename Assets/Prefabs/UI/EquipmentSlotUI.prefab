@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2588985773795671756}
   - component: {fileID: 5827861306348843226}
   - component: {fileID: 6479859126903920484}
-  - component: {fileID: 6432430165095965724}
+  - component: {fileID: 3507466712567423481}
   m_Layer: 5
-  m_Name: ShipTileUI
+  m_Name: EquipmentSlotUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6432430165095965724
+--- !u!114 &3507466712567423481
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,6 +83,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6904593861581348128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a72728f05e7bb1144abba1b505af7c7e, type: 3}
+  m_Script: {fileID: 11500000, guid: 92a3128e85f659b45a262552758cf5d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EquipmentItem: {fileID: 0}

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -8,90 +6,101 @@ namespace OverMars
 {
     public abstract class SlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        private Image _image;
-
         [HideInInspector] public EquipmentItem EquipmentItem;
-        public abstract bool IsInventorySlot { get; }
+
+        private protected Image _image;
+        
+        private Sprite _emptySlotSprite;
+        private Color _emptySlotColor;
+
+        public abstract bool IsEquipmentSlot { get; }
 
         private void Awake()
         {
             _image = GetComponent<Image>();
         }
 
-        private protected abstract void RemoveItem();
-
-        private protected void UpdateSlotUI(Item item)
+        private void Start()
         {
-            _image.sprite = item.Sprite;
+            Init();
         }
 
-        //public void OnPointerEnter(PointerEventData eventData)
-        //{
-        //    DragAndDropController.SlotUnderCursor = this;
-        //}
+        private void Init()
+        {
+            _emptySlotSprite = _image.sprite;
+            _emptySlotColor = _image.color;
+        }
 
-        //public void OnPointerExit(PointerEventData eventData)
-        //{
-        //    DragAndDropController.SlotUnderCursor = null;
-        //}
+        public abstract void SetItem(EquipmentItem equipmentItem);
+
+        private protected abstract void RemoveItem();
+
+        private protected void UpdateSlotUI()
+        {
+            _image.sprite = EquipmentItem ? EquipmentItem.Sprite : _emptySlotSprite;
+            _image.color = EquipmentItem ? Color.white : _emptySlotColor;
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            DragAndDropController.SlotUnderCursor = this;
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (DragAndDropController.SlotUnderCursor == this)
+            {
+                DragAndDropController.SlotUnderCursor = null;
+            }
+        }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            DragAndDropController.Instance.AddItemToContainer(this.EquipmentItem);
+            if (this.EquipmentItem)
+            {
+                DragAndDropController.AddItemToContainer(this.EquipmentItem);
+                this.RemoveItem();
+            }
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            DragAndDropController.Instance.UpdateDragAndDropContainerPosition();
+            DragAndDropController.UpdateDragAndDropContainerPosition();
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            EquipmentItem itemInContainer = DragAndDropController.Instance.GetItemInContainer();
+            EquipmentItem itemInContainer = DragAndDropController.GetItemInContainer();
             if (!itemInContainer)
             {
                 return;
             }
 
             SlotUI slotUnderCursor = DragAndDropController.SlotUnderCursor;
-            EquipmentItem itemUnderCursor = null;
-            if (slotUnderCursor && slotUnderCursor.EquipmentItem)
-            {
-                itemUnderCursor = slotUnderCursor.EquipmentItem;
-            }
-
             if (!slotUnderCursor)
             {
-                ReturnItem(this, itemInContainer);
+                if (this.IsEquipmentSlot)
+                {
+                    this.RemoveItem();
+                }
                 return;
             }
 
-            if (!slotUnderCursor.IsInventorySlot && !itemInContainer.IsEquipment)
+            if (slotUnderCursor.IsEquipmentSlot)
             {
-                ReturnItem(this, itemInContainer);
-                return;
+                slotUnderCursor.SetItem(itemInContainer);
             }
-
-            if (!this.IsInventorySlot && itemUnderCursor && !itemUnderCursor.IsEquipment)
-            {
-                ReturnItem(this, itemInContainer);
-                return;
-            }
-
-            ReplaceItems(slotUnderCursor, itemInContainer);
         }
 
-        public abstract void SetItem(EquipmentItem equipmentItem);
+        //private void ReplaceItems(SlotUI slotUnderCursor, EquipmentItem itemInContainer)
+        //{
+        //    SetItem(slotUnderCursor.EquipmentItem);
+        //    slotUnderCursor.SetItem(itemInContainer);
+        //}
 
-        private void ReplaceItems(SlotUI slotUnderCursor, EquipmentItem itemInContainer)
-        {
-            SetItem(slotUnderCursor.EquipmentItem);
-            slotUnderCursor.SetItem(itemInContainer);
-        }
-
-        private void ReturnItem(SlotUI slotUnderCursor, EquipmentItem itemInContainer)
-        {
-            slotUnderCursor.SetItem(itemInContainer);
-        }
+        //private void ReturnItem(SlotUI slotUnderCursor, EquipmentItem itemInContainer)
+        //{
+        //    slotUnderCursor.SetItem(itemInContainer);
+        //}
     }
 }

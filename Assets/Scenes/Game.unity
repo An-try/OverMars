@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e066862c2b56c4080642303fe5bddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shipItem: {fileID: 11400000, guid: e8fe0106363051348b9f54b54b0aeef1, type: 2}
+  _shipItem: {fileID: 11400000, guid: 375624e5173cfd2488da47152bb746e3, type: 2}
   _tilesContainer: {fileID: 1420276802}
 --- !u!4 &121163183
 Transform:
@@ -159,7 +159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121163181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -462, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1420276802}
@@ -411,7 +411,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300486562}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -432,7 +432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &394068691
 RectTransform:
   m_ObjectHideFlags: 0
@@ -516,7 +516,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &415051501
 GameObject:
@@ -967,7 +967,7 @@ GameObject:
   - component: {fileID: 1377367075}
   - component: {fileID: 1377367074}
   m_Layer: 0
-  m_Name: DragAndDropContainer
+  m_Name: DragAndDropController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -982,10 +982,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1377367073}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4b9cd4716d20394ab80fb756fc26dec, type: 3}
+  m_Script: {fileID: 11500000, guid: 9533e928a359b7646a752602915d72d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dragAndDropObject: {fileID: 300486564}
+  _dragAndDropOblect: {fileID: 300486562}
 --- !u!4 &1377367075
 Transform:
   m_ObjectHideFlags: 0
@@ -998,7 +998,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1409721343
 GameObject:
@@ -1053,7 +1053,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1420276801
 GameObject:

@@ -34,16 +34,16 @@ namespace OverMars
 
             for (int i = 0; i < cleanTilesCode.Length; i++)
             {
-                ShipTileUI shipTileUI = Instantiate(_shipTileUIPrefab, _shipTilesContainerUI).GetComponent<ShipTileUI>();
+                EquipmentSlotUI equipmentSlotUI = Instantiate(_shipTileUIPrefab, _shipTilesContainerUI).GetComponent<EquipmentSlotUI>();
 
                 int tileCode = int.Parse(cleanTilesCode[tileIndex].ToString());
                 if (tileCode == 0)
                 {
-                    shipTileUI.DeactivateTile();
+                    equipmentSlotUI.DeactivateTile();
                 }
                 else
                 {
-                    shipTileUI.ActivateTile((TileTypes)tileCode);
+                    equipmentSlotUI.ActivateTile((TileTypes)tileCode);
                 }
 
                 tileIndex++;

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -10,29 +9,37 @@ namespace OverMars
     {
         public static SlotUI SlotUnderCursor;
 
-        [SerializeField] private CanvasGroup _dragAndDropGroup;
-        [SerializeField] private Image _dragAndDropImage;
+        [SerializeField] private GameObject _dragAndDropOblect;
+        private static CanvasGroup _dragAndDropGroup;
+        private static Image _dragAndDropImage;
 
-        private EquipmentItem _itemInContainer;
+        private static EquipmentItem _itemInContainer;
 
         private static List<RaycastResult> raycastResults = new List<RaycastResult>();
 
-        private void Update()
+        private protected override void Awake()
         {
-            DetermineSlotUIAboveWhichTheArrowIs();
+            base.Awake();
+            _dragAndDropGroup = _dragAndDropOblect.GetComponent<CanvasGroup>();
+            _dragAndDropImage = _dragAndDropOblect.GetComponent<Image>();
         }
 
-        private void DetermineSlotUIAboveWhichTheArrowIs()
-        {
-            if (Input.touches.Length > 0 || Input.GetMouseButton(0))
-            {
-                GraphicRaycaster graphicRaycaster = new GraphicRaycaster();
-                graphicRaycaster.Raycast(new PointerEventData(EventSystem.current), raycastResults);
-                SlotUnderCursor
-            }
-        }
+        //private void Update()
+        //{
+        //    DetermineSlotUIAboveWhichTheArrowIs();
+        //}
 
-        public void UpdateDragAndDropContainerPosition()
+        //private void DetermineSlotUIAboveWhichTheArrowIs()
+        //{
+        //    if (Input.touches.Length > 0 || Input.GetMouseButton(0))
+        //    {
+        //        GraphicRaycaster graphicRaycaster = new GraphicRaycaster();
+        //        graphicRaycaster.Raycast(new PointerEventData(EventSystem.current), raycastResults);
+        //        SlotUnderCursor
+        //    }
+        //}
+
+        public static void UpdateDragAndDropContainerPosition()
         {
             if (_itemInContainer != null)
             {
@@ -40,7 +47,7 @@ namespace OverMars
             }
         }
 
-        public void AddItemToContainer(EquipmentItem item)
+        public static void AddItemToContainer(EquipmentItem item)
         {
             if (_itemInContainer != null)
             {
@@ -53,14 +60,14 @@ namespace OverMars
             _dragAndDropGroup.alpha = 1;
         }
 
-        public void RemoveItemFromContainer()
+        public static void RemoveItemFromContainer()
         {
             _itemInContainer = null;
-            _dragAndDropGroup.alpha = 1;
+            _dragAndDropGroup.alpha = 0;
             _dragAndDropImage.sprite = null;
         }
 
-        public EquipmentItem GetItemInContainer()
+        public static EquipmentItem GetItemInContainer()
         {
             EquipmentItem itemInContainer = _itemInContainer;
             RemoveItemFromContainer();

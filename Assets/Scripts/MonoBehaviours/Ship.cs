@@ -39,7 +39,8 @@ namespace OverMars
                 for (int j = 0; j < size.y; j++)
                 {
                     Vector3 newTilePosition = new Vector3(starterPoint.x + j + 1, starterPoint.y - i + 1, 0);
-                    ShipTile shipTile = Instantiate(_shipItem.TilePrefab, newTilePosition, Quaternion.identity, _tilesContainer).GetComponent<ShipTile>();
+                    ShipTile shipTile = Instantiate(_shipItem.TilePrefab, _tilesContainer).GetComponent<ShipTile>();
+                    shipTile.transform.localPosition = newTilePosition;
 
                     int tileCode = int.Parse(cleanTilesCode[tileIndex].ToString());
                     if (tileCode == 0)
