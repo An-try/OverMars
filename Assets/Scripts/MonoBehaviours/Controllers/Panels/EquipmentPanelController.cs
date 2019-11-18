@@ -44,18 +44,19 @@ namespace OverMars
             ShipItem shipItem = PlayerController.Instance.Ship.ShipItem;
             string cleanTilesCode = shipItem.CleanTilesCode;
             Vector2Int size = shipItem.Size;
-            Vector2Int starterPoint = new Vector2Int((int)_shipTilesContainerUI.localPosition.x - size.x / 2, (int)_shipTilesContainerUI.localPosition.y + size.y / 2);
+            Vector2Int starterPoint = new Vector2Int((int)_shipTilesContainerUI.localPosition.x - size.x / 2,
+                                                     (int)_shipTilesContainerUI.localPosition.y + size.y / 2);
 
             EquipmentTilesGrid = new EquipmentSlotUI[size.x, size.y];
+            int imageHeight = (int)_shipTileUIPrefab.GetComponent<RectTransform>().sizeDelta.y;
+            int imageHalfHeight = imageHeight / 2;
             int tileIndex = size.x * size.y - 1;
 
             for (int i = size.x - 1; i >= 0; i--)
             {
                 for (int j = size.y - 1; j >= 0; j--)
                 {
-                    int imageHeight = (int)_shipTileUIPrefab.GetComponent<RectTransform>().sizeDelta.y;
-                    int imageHalfSizeY = imageHeight / 2;
-                    Vector3 newTilePosition = new Vector3((starterPoint.x + j + 1) * imageHeight - imageHalfSizeY, (starterPoint.y - i + 1) * imageHeight + imageHalfSizeY, 0);
+                    Vector3 newTilePosition = new Vector3((starterPoint.x + j + 1) * imageHeight - imageHalfHeight, (starterPoint.y - i + 1) * imageHeight + imageHalfHeight, 0);
 
                     EquipmentSlotUI equipmentSlotUI = Instantiate(_shipTileUIPrefab, _shipTilesContainerUI).GetComponent<EquipmentSlotUI>();
                     equipmentSlotUI.transform.localPosition = newTilePosition;

@@ -10,7 +10,7 @@ namespace OverMars
 
         public ShipItem ShipItem => _shipItem;
 
-        //private List<EquiupmentItem> _equiupmentItems;
+        public ShipTile[,] ShipTilesGrid;
 
         private void Update()
         {
@@ -23,6 +23,7 @@ namespace OverMars
         private void InitialiseShip()
         {
             RebuildTiles();
+            //FillShipWithEquipment();
         }
 
         #region Building ship tiles
@@ -33,16 +34,17 @@ namespace OverMars
 
             Vector2Int size = _shipItem.Size;
             string cleanTilesCode = _shipItem.CleanTilesCode;
+            Vector2 starterPoint = new Vector2(_tilesContainer.localPosition.x - size.x / 2 - 0.5f, _tilesContainer.localPosition.y + size.y / 2 + 0.5f);
 
-            Vector2Int starterPoint = new Vector2Int((int)_tilesContainer.localPosition.x - size.x / 2, (int)_tilesContainer.localPosition.y + size.y / 2);
+            ShipTilesGrid = new ShipTile[size.x, size.y];
+            int tileIndex = size.x * size.y - 1;
 
-            int tileIndex = 0;
-
-            for (int i = 0; i < size.x; i++)
+            for (int i = size.x - 1; i >= 0; i--)
             {
-                for (int j = 0; j < size.y; j++)
+                for (int j = size.y - 1; j >= 0; j--)
                 {
                     Vector3 newTilePosition = new Vector3(starterPoint.x + j + 1, starterPoint.y - i + 1, 0);
+
                     ShipTile shipTile = Instantiate(_tilePrefab, _tilesContainer).GetComponent<ShipTile>();
                     shipTile.transform.localPosition = newTilePosition;
 
@@ -56,7 +58,8 @@ namespace OverMars
                         shipTile.ActivateTile((TileTypes)tileCode);
                     }
 
-                    tileIndex++;
+                    ShipTilesGrid[i, j] = shipTile;
+                    tileIndex--;
                 }
             }
         }
@@ -66,6 +69,25 @@ namespace OverMars
             for (;_tilesContainer.childCount > 0;)
             {
                 Destroy(_tilesContainer.GetChild(0));
+            }
+        }
+
+        #endregion
+
+        #region Filling ship with equipment
+
+        private void FillShipWithEquipment()
+        {
+            for (int i = 0; i < ShipTilesGrid.GetLength(0); i++)
+            {
+                for (int j = 0; j < ShipTilesGrid.GetLength(1); j++)
+                {
+                    EquipmentItem equipmentItem = EquipmentPanelController.EquipmentTilesGrid[i, j].EquipmentItem;
+                    if (equipmentItem)
+                    {
+                        ShipTilesGrid[i, j].SetItem(equipmentItem);
+                    }
+                }
             }
         }
 

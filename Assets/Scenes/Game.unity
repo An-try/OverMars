@@ -151,6 +151,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shipItem: {fileID: 11400000, guid: 375624e5173cfd2488da47152bb746e3, type: 2}
   _tilesContainer: {fileID: 1420276802}
+  _tilePrefab: {fileID: 5546957055228784911, guid: 73bb8023a09264145b81f5d24dad1359,
+    type: 3}
 --- !u!4 &121163183
 Transform:
   m_ObjectHideFlags: 0
@@ -159,7 +161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121163181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 11.15}
+  m_LocalPosition: {x: 0, y: 0, z: 258.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1420276802}
