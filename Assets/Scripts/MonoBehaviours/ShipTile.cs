@@ -12,6 +12,8 @@ namespace OverMars
         private Sprite _emptyTileSprite;
         private Vector2Int _emptyTileSize;
 
+        public bool IsEmptyTile { get; private set; } = true;
+
         private void Awake()
         {
             _spriteRenderer = _spriteContainer.GetComponent<SpriteRenderer>();
@@ -45,6 +47,8 @@ namespace OverMars
                                                          _spriteContainer.localPosition.y * positionMultiplierY,
                                                          _spriteContainer.localPosition.z);
 
+            IsEmptyTile = false;
+
             _boxCollider2D = _spriteContainer.gameObject.AddComponent<BoxCollider2D>();
         }
 
@@ -53,6 +57,7 @@ namespace OverMars
             _spriteRenderer.sprite = _emptyTileSprite;
             _spriteRenderer.sortingOrder = 0;
             _spriteContainer.localPosition = Vector3.zero;
+            IsEmptyTile = true;
         }
 
         public void ActivateTile()

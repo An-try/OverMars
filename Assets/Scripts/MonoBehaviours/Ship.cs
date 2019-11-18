@@ -119,6 +119,10 @@ namespace OverMars
                         ShipTilesGrid[i, j].SetItem(equipmentItem);
                         _equipmentItems.Add(equipmentItem);
                     }
+                    else
+                    {
+                        ShipTilesGrid[i, j].DeactivateTile();
+                    }
                 }
             }
         }
