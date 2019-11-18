@@ -5,7 +5,8 @@ namespace OverMars
     public abstract class EquipmentItem : Item
     {
         [SerializeField] private EquipmentTypes _type;
-        [SerializeField] private Vector2Int _size;
+        [SerializeField] private int _width;
+        [SerializeField] private int _height;
         [SerializeField] private float _energyConsumption;
         [SerializeField] private float _durability;
         [SerializeField] private float _armor;
@@ -13,7 +14,8 @@ namespace OverMars
         [SerializeField] private float _mass;
 
         public EquipmentTypes Type => _type;
-        public Vector2Int Size => _size;
+        public int Width => _width;
+        public int Height => _height;
         public float EnergyConsumption => _energyConsumption;
         public float Durability => _durability;
         public float Armor => _armor;

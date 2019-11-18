@@ -16,7 +16,8 @@ MonoBehaviour:
   _description: Medium armor plate
   _sprite: {fileID: 21300000, guid: b884954d8b0887b43817e804ec08dd87, type: 3}
   _type: 1
-  _size: {x: 2, y: 2}
+  _width: 2
+  _height: 2
   _energyConsumption: 0
   _durability: 220
   _armor: 3

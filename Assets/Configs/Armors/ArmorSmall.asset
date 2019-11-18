@@ -16,7 +16,8 @@ MonoBehaviour:
   _description: Small armor plate
   _sprite: {fileID: 21300000, guid: 7de6281997de53e408196b640467b69c, type: 3}
   _type: 1
-  _size: {x: 1, y: 1}
+  _width: 1
+  _height: 1
   _energyConsumption: 0
   _durability: 50
   _armor: 2

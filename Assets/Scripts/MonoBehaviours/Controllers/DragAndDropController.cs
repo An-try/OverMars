@@ -33,19 +33,20 @@ namespace OverMars
         {
             if (_itemInContainer && SlotUnderCursor && SlotUnderCursor.IsEquipmentSlot)
             {
-                Vector2Int itemSize = _itemInContainer.Size;
+                int itemWidth = _itemInContainer.Width;
+                int itemHeight = _itemInContainer.Height;
                 Vector2Int equipmentSlotArrayIndexes = SlotUnderCursor.ArrayIndexes;
                 _equipmentSlotsUnderDragAndDropObjectArrayIndexes = new List<Vector2Int>();
 
-                for (int i = 0; i < itemSize.x; i++)
+                for (int i = 0; i < itemHeight; i++)
                 {
-                    for (int j = 0; j < itemSize.y; j++)
+                    for (int j = 0; j < itemWidth; j++)
                     {
                         _equipmentSlotsUnderDragAndDropObjectArrayIndexes.Add(new Vector2Int(equipmentSlotArrayIndexes.x + i, equipmentSlotArrayIndexes.y + j));
                     }
                 }
 
-                EquipmentPanelController.CheckDragAndDropItemForSuitability(_equipmentSlotsUnderDragAndDropObjectArrayIndexes, itemSize);
+                EquipmentPanelController.CheckDragAndDropItemForSuitability(_equipmentSlotsUnderDragAndDropObjectArrayIndexes, itemWidth, itemHeight);
             }
             else
             {

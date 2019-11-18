@@ -7,6 +7,7 @@ namespace OverMars
     public class EquipmentPanelController : PanelCommon<EquipmentPanelController>
     {
         [SerializeField] private Transform _shipTilesContainerUI;
+        [SerializeField] private Image _shipImageComponent;
         [SerializeField] private GameObject _shipTileUIPrefab;
 
         public static EquipmentSlotUI[,] EquipmentTilesGrid;
@@ -43,6 +44,9 @@ namespace OverMars
             _shipTilesContainerUI.localPosition = Vector3.zero;
 
             ShipItem shipItem = PlayerController.Instance.Ship.ShipItem;
+            _shipImageComponent.sprite = shipItem.Sprite;
+            _shipImageComponent.rectTransform.sizeDelta = new Vector2(shipItem.Sprite.rect.size.x, shipItem.Sprite.rect.size.y);
+
             string cleanTilesCode = shipItem.CleanTilesCode;
             int shipWidth = shipItem.Width;
             int shipHeight = shipItem.Height;
@@ -104,7 +108,7 @@ namespace OverMars
 
         #region Check drag_and_drop_item for suitability
 
-        public static void CheckDragAndDropItemForSuitability(List<Vector2Int> equipmentSlotsUnderDragAndDropObjectArrayIndexes, Vector2Int itemSize)
+        public static void CheckDragAndDropItemForSuitability(List<Vector2Int> equipmentSlotsUnderDragAndDropObjectArrayIndexes, int itemWidth, int itemHeight)
         {
             EquipmentSlotsUnderDragAndDropObjectArrayIndexes = equipmentSlotsUnderDragAndDropObjectArrayIndexes;
             IsItemInDragAndDropSuitable = true;
@@ -123,7 +127,7 @@ namespace OverMars
             }
 
             MarkTilesAsNotUnderItem();
-            MarkTilesAsUnderItem(IsItemInDragAndDropSuitable, itemSize);
+            MarkTilesAsUnderItem(IsItemInDragAndDropSuitable, itemWidth, itemHeight);
         }
 
         public static void MarkTilesAsNotUnderItem()
@@ -137,33 +141,14 @@ namespace OverMars
             }
         }
 
-        private static void MarkTilesAsUnderItem(bool suitable, Vector2Int itemSize)
+        private static void MarkTilesAsUnderItem(bool suitable, int itemWidth, int itemHeight)
         {
-            int indexOffsetX = 0;
-            int indexOffsetY = 0;
-
-            if (itemSize.x > 1)
-            {
-                indexOffsetX = 1;
-            }
-            if (itemSize.y > 1)
-            {
-                indexOffsetY = 1;
-            }
-
             foreach (Vector2Int arrayIndex in EquipmentSlotsUnderDragAndDropObjectArrayIndexes)
             {
-                for (int i = arrayIndex.x; i < itemSize.x + arrayIndex.x - indexOffsetX; i++)
+                if (arrayIndex.x < EquipmentTilesGrid.GetLength(0) && arrayIndex.y < EquipmentTilesGrid.GetLength(1))
                 {
-                    for (int j = arrayIndex.y; j < itemSize.y + arrayIndex.y - indexOffsetY; j++)
-                    {
-                        Color newColor = suitable ? _itemSuitableColor : _itemUnsuitableColor;
-                        try
-                        {
-                            EquipmentTilesGrid[i, j].MarkAsUnderItem(newColor);
-                        }
-                        catch { }
-                    }
+                    Color newColor = suitable ? _itemSuitableColor : _itemUnsuitableColor;
+                    EquipmentTilesGrid[arrayIndex.x, arrayIndex.y].MarkAsUnderItem(newColor);
                 }
             }
         }
