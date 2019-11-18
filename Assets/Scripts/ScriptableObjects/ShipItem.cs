@@ -5,16 +5,18 @@ namespace OverMars
     [CreateAssetMenu(fileName = "New ship", menuName = "Over Mars/Ship")]
     public class ShipItem : Item
     {
-        [SerializeField] private Vector2Int _size;
+        [SerializeField] private int _height;
+        [SerializeField] private int _width;
         [SerializeField] private string _tilesCode;
 
-        public Vector2Int Size => IsTilesCodeProper() ? _size : Vector2Int.zero;
+        public int Height => IsTilesCodeProper() ? _height : 0;
+        public int Width => IsTilesCodeProper() ? _width : 0;
         public string TilesCode => IsTilesCodeProper() ? _tilesCode : "";
         public string CleanTilesCode => _tilesCode.Replace(" ", "");
 
         private bool IsTilesCodeProper()
         {
-            if (_size.x * _size.y != CleanTilesCode.Length)
+            if (_height * _width != CleanTilesCode.Length)
             {
                 Debug.LogError("Tiles code length must be equals to size.height * size.width");
                 return false;

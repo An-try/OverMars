@@ -40,23 +40,28 @@ namespace OverMars
         private void RebuildTiles()
         {
             DestroyTiles();
+            _shipTilesContainerUI.localPosition = Vector3.zero;
 
             ShipItem shipItem = PlayerController.Instance.Ship.ShipItem;
             string cleanTilesCode = shipItem.CleanTilesCode;
-            Vector2Int size = shipItem.Size;
-            Vector2Int starterPoint = new Vector2Int((int)_shipTilesContainerUI.localPosition.x - size.x / 2,
-                                                     (int)_shipTilesContainerUI.localPosition.y + size.y / 2);
+            int shipWidth = shipItem.Width;
+            int shipHeight = shipItem.Height;
 
-            EquipmentTilesGrid = new EquipmentSlotUI[size.x, size.y];
-            int imageHeight = (int)_shipTileUIPrefab.GetComponent<RectTransform>().sizeDelta.y;
-            int imageHalfHeight = imageHeight / 2;
-            int tileIndex = size.x * size.y - 1;
+            EquipmentTilesGrid = new EquipmentSlotUI[shipHeight, shipWidth];
+            Vector2Int imageSize = new Vector2Int((int)_shipTileUIPrefab.GetComponent<RectTransform>().sizeDelta.x, (int)_shipTileUIPrefab.GetComponent<RectTransform>().sizeDelta.y);
+            int imageHalfWidth = imageSize.x / 2;
+            int imageHalfHeight = imageSize.y / 2;
 
-            for (int i = size.x - 1; i >= 0; i--)
+            Vector2Int starterPoint = new Vector2Int((int)_shipTilesContainerUI.localPosition.x - shipWidth / 2,
+                                                     (int)_shipTilesContainerUI.localPosition.y + shipHeight / 2);
+
+            int tileIndex = shipWidth * shipHeight - 1;
+
+            for (int i = shipHeight - 1; i >= 0; i--)
             {
-                for (int j = size.y - 1; j >= 0; j--)
+                for (int j = shipWidth - 1; j >= 0; j--)
                 {
-                    Vector3 newTilePosition = new Vector3((starterPoint.x + j + 1) * imageHeight - imageHalfHeight, (starterPoint.y - i + 1) * imageHeight + imageHalfHeight, 0);
+                    Vector3 newTilePosition = new Vector3((starterPoint.x + j) * imageSize.y - imageHalfHeight, (starterPoint.y - i) * imageSize.y + imageHalfHeight, 0);
 
                     EquipmentSlotUI equipmentSlotUI = Instantiate(_shipTileUIPrefab, _shipTilesContainerUI).GetComponent<EquipmentSlotUI>();
                     equipmentSlotUI.transform.localPosition = newTilePosition;
@@ -75,6 +80,15 @@ namespace OverMars
                     EquipmentTilesGrid[i, j] = equipmentSlotUI;
                     tileIndex--;
                 }
+            }
+
+            if (shipWidth % 2 == 0)
+            {
+                _shipTilesContainerUI.localPosition += new Vector3(imageHalfWidth, 0, 0);
+            }
+            if (shipHeight % 2 == 0)
+            {
+                _shipTilesContainerUI.localPosition -= new Vector3(0, imageHalfHeight, 0);
             }
         }
 

@@ -6,6 +6,7 @@ namespace OverMars
     public class Ship : MonoBehaviour
     {
         [SerializeField] private ShipItem _shipItem;
+        [SerializeField] private SpriteRenderer _shipSprite;
         [SerializeField] private Transform _tilesContainer;
         [SerializeField] private GameObject _tilePrefab;
 
@@ -34,6 +35,8 @@ namespace OverMars
 
         private void InitialiseShip()
         {
+            _shipSprite.sprite = _shipItem.Sprite;
+
             RebuildTiles();
             FillShipWithEquipment();
         }
@@ -43,19 +46,21 @@ namespace OverMars
         private void RebuildTiles()
         {
             DestroyTiles();
+            _tilesContainer.localPosition = Vector3.zero;
 
-            Vector2Int size = _shipItem.Size;
+            int shipWidth = _shipItem.Width;
+            int shipHeight = _shipItem.Height;
             string cleanTilesCode = _shipItem.CleanTilesCode;
-            Vector2 starterPoint = new Vector2(_tilesContainer.localPosition.x - size.x / 2 - 0.5f, _tilesContainer.localPosition.y + size.y / 2 + 0.5f);
+            Vector2 starterPoint = new Vector2(_tilesContainer.localPosition.x - shipWidth / 2 - 0.5f, _tilesContainer.localPosition.y + shipHeight / 2 + 0.5f);
 
-            ShipTilesGrid = new ShipTile[size.x, size.y];
-            int tileIndex = size.x * size.y - 1;
+            ShipTilesGrid = new ShipTile[shipHeight, shipWidth];
+            int tileIndex = shipWidth * shipHeight - 1;
 
-            for (int i = size.x - 1; i >= 0; i--)
+            for (int i = shipHeight - 1; i >= 0; i--)
             {
-                for (int j = size.y - 1; j >= 0; j--)
+                for (int j = shipWidth - 1; j >= 0; j--)
                 {
-                    Vector3 newTilePosition = new Vector3(starterPoint.x + j + 1, starterPoint.y - i + 1, 0);
+                    Vector3 newTilePosition = new Vector3(starterPoint.x + j, starterPoint.y - i, 0);
 
                     ShipTile shipTile = Instantiate(_tilePrefab, _tilesContainer).GetComponent<ShipTile>();
                     shipTile.transform.localPosition = newTilePosition;
@@ -73,6 +78,15 @@ namespace OverMars
                     ShipTilesGrid[i, j] = shipTile;
                     tileIndex--;
                 }
+            }
+
+            if (shipWidth % 2 == 0)
+            {
+                _tilesContainer.localPosition += new Vector3(0.5f, 0, 0);
+            }
+            if (shipHeight % 2 == 0)
+            {
+                _tilesContainer.localPosition -= new Vector3(0, 0.5f, 0);
             }
         }
 
