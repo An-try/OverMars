@@ -90,33 +90,45 @@ namespace OverMars
                 }
             }
 
-            SetTilesDefaultColor();
-            SetEquipmentTilesColor(suitable, equipmentSlotsUnderDragAndDropObjectArrayIndexes, itemSize);
+            MarkTilesAsNotUnderItem();
+            MarkTilesAsUnderItem(suitable, equipmentSlotsUnderDragAndDropObjectArrayIndexes, itemSize);
         }
 
-        public static void SetTilesDefaultColor()
+        public static void MarkTilesAsNotUnderItem()
         {
             for (int i = 0; i < _equipmentGrid.GetLength(0); i++)
             {
                 for (int j = 0; j < _equipmentGrid.GetLength(1); j++)
                 {
-                    _equipmentGrid[i, j].SetDefaultColor();
+                    _equipmentGrid[i, j].MarkAsNotUnderItem();
                 }
             }
         }
 
-        private static void SetEquipmentTilesColor(bool suitable, List<Vector2Int> equipmentSlotsUnderDragAndDropObjectArrayIndexes, Vector2Int itemSize)
+        private static void MarkTilesAsUnderItem(bool suitable, List<Vector2Int> equipmentSlotsUnderDragAndDropObjectArrayIndexes, Vector2Int itemSize)
         {
+            int indexOffsetX = 0;
+            int indexOffsetY = 0;
+
+            if (itemSize.x > 1)
+            {
+                indexOffsetX = 1;
+            }
+            if (itemSize.y > 1)
+            {
+                indexOffsetY = 1;
+            }
+
             foreach (Vector2Int arrayIndex in equipmentSlotsUnderDragAndDropObjectArrayIndexes)
             {
-                for (int i = arrayIndex.x; i < itemSize.x + arrayIndex.x - 1; i++)
+                for (int i = arrayIndex.x; i < itemSize.x + arrayIndex.x - indexOffsetX; i++)
                 {
-                    for (int j = arrayIndex.y; j < itemSize.y + arrayIndex.y - 1; j++)
+                    for (int j = arrayIndex.y; j < itemSize.y + arrayIndex.y - indexOffsetY; j++)
                     {
                         Color newColor = suitable ? _itemSuitableColor : _itemUnsuitableColor;
                         try
                         {
-                            _equipmentGrid[i, j].SetColor(newColor);
+                            _equipmentGrid[i, j].MarkAsUnderItem(newColor);
                         }
                         catch { }
                     }

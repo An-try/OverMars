@@ -41,6 +41,7 @@ namespace OverMars
         {
             _image.sprite = EquipmentItem ? EquipmentItem.Sprite : _emptySlotSprite;
             _image.color = EquipmentItem ? Color.white : _emptySlotColor;
+            //Instantiate(itemUIPrefab, this.transform);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -79,21 +80,12 @@ namespace OverMars
             }
 
             SlotUI slotUnderCursor = DragAndDropController.SlotUnderCursor;
-            if (!slotUnderCursor)
-            {
-                if (this.IsEquipmentSlot)
-                {
-                    this.RemoveItem();
-                }
-                return;
-            }
-
-            if (slotUnderCursor.IsEquipmentSlot)
+            if (slotUnderCursor && slotUnderCursor.IsEquipmentSlot)
             {
                 slotUnderCursor.SetItem(itemInContainer);
             }
 
-            EquipmentPanelController.SetTilesDefaultColor();
+            EquipmentPanelController.MarkTilesAsNotUnderItem();
         }
 
         //private void ReplaceItems(SlotUI slotUnderCursor, EquipmentItem itemInContainer)

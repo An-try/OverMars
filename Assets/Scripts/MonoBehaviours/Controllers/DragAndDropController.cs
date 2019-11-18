@@ -49,7 +49,7 @@ namespace OverMars
             }
             else
             {
-                EquipmentPanelController.SetTilesDefaultColor();
+                EquipmentPanelController.MarkTilesAsNotUnderItem();
             }
         }
 

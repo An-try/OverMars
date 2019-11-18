@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace OverMars
 {
@@ -8,6 +6,7 @@ namespace OverMars
     {
         private int _id;
         private Vector2Int _arrayIndexes;
+        private bool _isUnderItem = false;
 
         public bool IsActiveTile => this._image.enabled;
 
@@ -56,14 +55,16 @@ namespace OverMars
             UpdateSlotUI();
         }
 
-        public void SetDefaultColor()
+        public void MarkAsUnderItem(Color newColor)
         {
-            _image.color = EquipmentItem ? Color.white : _emptySlotColor;
+            _isUnderItem = true;
+            _image.color = newColor;
         }
 
-        public void SetColor(Color newColor)
+        public void MarkAsNotUnderItem()
         {
-            _image.color = newColor;
+            _isUnderItem = false;
+            _image.color = EquipmentItem ? Color.white : _emptySlotColor;
         }
     }
 }
