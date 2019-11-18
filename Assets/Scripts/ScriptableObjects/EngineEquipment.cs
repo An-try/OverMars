@@ -5,10 +5,10 @@ namespace OverMars
     [CreateAssetMenu(fileName = "New engine", menuName = "Over Mars/Equipment/Engine")]
     public class EngineEquipment : EquipmentItem
     {
-        [SerializeField] private float _thrust;
-        [SerializeField] private float _rotationThrust;
+        [SerializeField] private float _thrustForce;
+        [SerializeField] private float _rotationForce;
 
-        public float Thrust => _thrust;
-        public float КotationThrust => _rotationThrust;
+        public float ThrustForce => _thrustForce;
+        public float RotationForce => _rotationForce;
     }
 }

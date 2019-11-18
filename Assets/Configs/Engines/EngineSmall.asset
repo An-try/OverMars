@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33409e8364cbcdd409ffcd29ee1755fd, type: 3}
-  m_Name: SmallEngine
+  m_Name: EngineSmall
   m_EditorClassIdentifier: 
-  _name: 
-  _description: 
-  _sprite: {fileID: 0}
-  _type: 0
-  _size: {x: 0, y: 0}
-  _energyConsumption: 0
-  _durability: 0
+  _name: Small engine
+  _description: '"Small engine" description'
+  _sprite: {fileID: 21300000, guid: d0f11a8023336b1499f8b418a15af3bc, type: 3}
+  _type: 4
+  _size: {x: 1, y: 1}
+  _energyConsumption: 20
+  _durability: 30
   _armor: 0
   _reflection: 0
-  _mass: 0
-  _thrust: 0
-  _rotationThrust: 0
+  _mass: 40
+  _thrustForce: 1
+  _rotationForce: 1

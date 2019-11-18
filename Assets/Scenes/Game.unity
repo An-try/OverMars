@@ -588,7 +588,7 @@ PrefabInstance:
     - target: {fileID: 6522427651125577752, guid: d4645b2d63cdd6c4a93154290ea5de72,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 262.1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6522427651125577752, guid: d4645b2d63cdd6c4a93154290ea5de72,
         type: 3}
@@ -1050,7 +1050,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f4035fa7ab5bd6549aeb03cd4460dbce, type: 2}
   _shieldEquipments: []
   _reactorEquipments: []
-  _engineEquipments: []
+  _engineEquipments:
+  - {fileID: 11400000, guid: 3238862d926a6504680df15a28b2b261, type: 2}
 --- !u!4 &1409721345
 Transform:
   m_ObjectHideFlags: 0

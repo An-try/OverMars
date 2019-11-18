@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace OverMars
 {
@@ -8,13 +9,24 @@ namespace OverMars
         [SerializeField] private Transform _tilesContainer;
         [SerializeField] private GameObject _tilePrefab;
 
+        private Rigidbody2D _rigidbody2D;
+
+        private List<EquipmentItem> _equipmentItems = new List<EquipmentItem>();
+
         public ShipItem ShipItem => _shipItem;
 
         public ShipTile[,] ShipTilesGrid;
 
+        private void Awake()
+        {
+            _rigidbody2D = GetComponent<Rigidbody2D>();
+        }
+
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            ShipControl();
+
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 InitialiseShip();
             }
@@ -55,7 +67,7 @@ namespace OverMars
                     }
                     else
                     {
-                        shipTile.ActivateTile((TileTypes)tileCode);
+                        shipTile.ActivateTile();
                     }
 
                     ShipTilesGrid[i, j] = shipTile;
@@ -78,6 +90,9 @@ namespace OverMars
 
         private void FillShipWithEquipment()
         {
+            _equipmentItems = null;
+            _equipmentItems = new List<EquipmentItem>();
+
             for (int i = 0; i < ShipTilesGrid.GetLength(0); i++)
             {
                 for (int j = 0; j < ShipTilesGrid.GetLength(1); j++)
@@ -86,9 +101,65 @@ namespace OverMars
                     if (equipmentItem)
                     {
                         ShipTilesGrid[i, j].SetItem(equipmentItem);
+                        _equipmentItems.Add(equipmentItem);
                     }
                 }
             }
+        }
+
+        #endregion
+
+        #region Ship movement
+
+        private void ShipControl()
+        {
+            float axisY = Input.GetAxis("Vertical");
+            float axisX = Input.GetAxis("Horizontal");
+
+            float thrustForce = 0;
+            float rotationForce = 0;
+
+            foreach (EquipmentItem equipmentItem in _equipmentItems)
+            {
+                if (equipmentItem.GetType() == typeof(EngineEquipment))
+                {
+                    EngineEquipment engineEquipment = (EngineEquipment)equipmentItem;
+                    thrustForce += engineEquipment.ThrustForce;
+                    rotationForce += engineEquipment.RotationForce;
+                }
+            }
+
+            float enginesMaxVelocity = thrustForce * 10;
+            float enginesMaxTurnSpeed = rotationForce * 10;
+
+            ThrustForward(axisY * thrustForce);
+            ClampVelocity(enginesMaxVelocity);
+
+            RotateShip(axisX * rotationForce);
+            ClampTurnSpeed(enginesMaxTurnSpeed);
+        }
+
+        private void ThrustForward(float forwardForce)
+        {
+            _rigidbody2D.AddForce(transform.up * forwardForce);
+        }
+
+        private void ClampVelocity(float enginesMaxVelocity)
+        {
+            float clampMoveX = Mathf.Clamp(_rigidbody2D.velocity.x, -enginesMaxVelocity, enginesMaxVelocity);
+            float clampMoveY = Mathf.Clamp(_rigidbody2D.velocity.y, -enginesMaxVelocity, enginesMaxVelocity);
+            _rigidbody2D.velocity = new Vector2(clampMoveX, clampMoveY);
+        }
+
+        private void RotateShip(float rotationForce)
+        {
+            _rigidbody2D.AddTorque(-rotationForce);
+        }
+
+        private void ClampTurnSpeed(float enginesMaxTurnSpeed)
+        {
+            float clampRotateSpeed = Mathf.Clamp(_rigidbody2D.angularVelocity, -enginesMaxTurnSpeed, enginesMaxTurnSpeed);
+            _rigidbody2D.angularVelocity = clampRotateSpeed;
         }
 
         #endregion

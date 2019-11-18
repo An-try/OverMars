@@ -55,21 +55,8 @@ namespace OverMars
             _spriteContainer.localPosition = Vector3.zero;
         }
 
-        public void ActivateTile(TileTypes tileType)
+        public void ActivateTile()
         {
-            switch (tileType)
-            {
-                case TileTypes.Basic:
-                    _spriteRenderer.color = Color.white;
-                    break;
-                case TileTypes.Engine:
-                    _spriteRenderer.color = Color.blue;
-                    break;
-                default:
-                    _spriteRenderer.color = Color.white;
-                    break;
-            }
-
             _spriteRenderer.enabled = true;
             _boxCollider2D.enabled = true;
         }
