@@ -66,9 +66,9 @@ namespace OverMars
 
         private void DestroyTiles()
         {
-            for (;_tilesContainer.childCount > 0;)
+            foreach (Transform tile in _tilesContainer)
             {
-                Destroy(_tilesContainer.GetChild(0));
+                Destroy(tile.gameObject);
             }
         }
 
