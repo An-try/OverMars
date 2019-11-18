@@ -26,7 +26,7 @@ namespace OverMars
         {
             ShipControl();
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 InitialiseShip();
             }
@@ -86,6 +86,8 @@ namespace OverMars
 
         #endregion
 
+
+
         #region Filling ship with equipment
 
         private void FillShipWithEquipment()
@@ -108,6 +110,8 @@ namespace OverMars
         }
 
         #endregion
+
+
 
         #region Ship movement
 
