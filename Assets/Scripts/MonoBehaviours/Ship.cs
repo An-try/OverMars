@@ -23,7 +23,7 @@ namespace OverMars
         private void InitialiseShip()
         {
             RebuildTiles();
-            //FillShipWithEquipment();
+            FillShipWithEquipment();
         }
 
         #region Building ship tiles
