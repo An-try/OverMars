@@ -6,14 +6,18 @@ namespace OverMars
     {
         [SerializeField] private ShipItem _shipItem;
         [SerializeField] private Transform _tilesContainer;
+        [SerializeField] private GameObject _tilePrefab;
 
         public ShipItem ShipItem => _shipItem;
 
         //private List<EquiupmentItem> _equiupmentItems;
 
-        private void Start()
+        private void Update()
         {
-            InitialiseShip();
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                InitialiseShip();
+            }
         }
 
         private void InitialiseShip()
@@ -39,7 +43,7 @@ namespace OverMars
                 for (int j = 0; j < size.y; j++)
                 {
                     Vector3 newTilePosition = new Vector3(starterPoint.x + j + 1, starterPoint.y - i + 1, 0);
-                    ShipTile shipTile = Instantiate(_shipItem.TilePrefab, _tilesContainer).GetComponent<ShipTile>();
+                    ShipTile shipTile = Instantiate(_tilePrefab, _tilesContainer).GetComponent<ShipTile>();
                     shipTile.transform.localPosition = newTilePosition;
 
                     int tileCode = int.Parse(cleanTilesCode[tileIndex].ToString());
