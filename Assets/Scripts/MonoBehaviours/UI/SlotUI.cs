@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -36,7 +37,7 @@ namespace OverMars
             _defaultTileImageSize = new Vector2Int((int)_imageRect.sizeDelta.x, (int)_imageRect.sizeDelta.y);
         }
 
-        public abstract void SetItem(EquipmentItem equipmentItem);
+        public abstract void SetItem(EquipmentItem equipmentItem, List<Vector2Int> itemTilesIndexes);
 
         private protected abstract void RemoveItem();
 
@@ -46,7 +47,10 @@ namespace OverMars
             {
                 _image.sprite = EquipmentItem.Sprite;
                 _image.color = Color.white;
-                _imageRect.sizeDelta = EquipmentItem.Sprite.rect.size;
+                if (this.IsEquipmentSlot)
+                {
+                    _imageRect.sizeDelta = EquipmentItem.Sprite.rect.size;
+                }
             }
             else
             {
@@ -93,10 +97,10 @@ namespace OverMars
             }
 
             SlotUI slotUnderCursor = DragAndDropController.SlotUnderCursor;
-            if (slotUnderCursor && slotUnderCursor.IsEquipmentSlot)
+            if (slotUnderCursor && slotUnderCursor.IsEquipmentSlot && EquipmentPanelController.IsItemInDragAndDropSuitable)
             {
                 EquipmentPanelController.SetSlotsUnderItemAreNotEmpty();
-                slotUnderCursor.SetItem(itemInContainer);
+                slotUnderCursor.SetItem(itemInContainer, EquipmentPanelController.EquipmentSlotsUnderDragAndDropObjectArrayIndexes);
             }
 
             EquipmentPanelController.MarkTilesAsNotUnderItem();

@@ -9,12 +9,12 @@ namespace OverMars
         [SerializeField] private Transform _shipTilesContainerUI;
         [SerializeField] private GameObject _shipTileUIPrefab;
 
-        private static EquipmentSlotUI[,] _equipmentGrid;
+        public static EquipmentSlotUI[,] EquipmentTilesGrid;
+        public static List<Vector2Int> EquipmentSlotsUnderDragAndDropObjectArrayIndexes = new List<Vector2Int>();
+        public static bool IsItemInDragAndDropSuitable = false;
 
         private static Color _itemSuitableColor = Color.green;
         private static Color _itemUnsuitableColor = Color.red;
-
-        private static List<Vector2Int> _equipmentSlotsUnderDragAndDropObjectArrayIndexes = new List<Vector2Int>();
 
         private void Start()
         {
@@ -23,13 +23,13 @@ namespace OverMars
 
         public static void SetSlotsUnderItemAreNotEmpty()
         {
-            for (int i = 0; i < _equipmentGrid.GetLength(0); i++)
+            for (int i = 0; i < EquipmentTilesGrid.GetLength(0); i++)
             {
-                for (int j = 0; j < _equipmentGrid.GetLength(1); j++)
+                for (int j = 0; j < EquipmentTilesGrid.GetLength(1); j++)
                 {
-                    if (_equipmentGrid[i, j].IsUnderItem)
+                    if (EquipmentTilesGrid[i, j].IsUnderItem)
                     {
-                        _equipmentGrid[i, j].IsEmptyTile = false;
+                        EquipmentTilesGrid[i, j].IsEmptyTile = false;
                     }
                 }
             }
@@ -46,7 +46,7 @@ namespace OverMars
             Vector2Int size = shipItem.Size;
             Vector2Int starterPoint = new Vector2Int((int)_shipTilesContainerUI.localPosition.x - size.x / 2, (int)_shipTilesContainerUI.localPosition.y + size.y / 2);
 
-            _equipmentGrid = new EquipmentSlotUI[size.x, size.y];
+            EquipmentTilesGrid = new EquipmentSlotUI[size.x, size.y];
             int tileIndex = size.x * size.y - 1;
 
             for (int i = size.x - 1; i >= 0; i--)
@@ -71,7 +71,7 @@ namespace OverMars
                         equipmentSlotUI.ActivateTile((TileTypes)tileCode);
                     }
 
-                    _equipmentGrid[i, j] = equipmentSlotUI;
+                    EquipmentTilesGrid[i, j] = equipmentSlotUI;
                     tileIndex--;
                 }
             }
@@ -91,30 +91,33 @@ namespace OverMars
 
         public static void CheckDragAndDropItemForSuitability(List<Vector2Int> equipmentSlotsUnderDragAndDropObjectArrayIndexes, Vector2Int itemSize)
         {
-            _equipmentSlotsUnderDragAndDropObjectArrayIndexes = equipmentSlotsUnderDragAndDropObjectArrayIndexes;
-            bool suitable = true;
-            foreach (Vector2Int arrayIndex in _equipmentSlotsUnderDragAndDropObjectArrayIndexes)
+            EquipmentSlotsUnderDragAndDropObjectArrayIndexes = equipmentSlotsUnderDragAndDropObjectArrayIndexes;
+            IsItemInDragAndDropSuitable = true;
+            foreach (Vector2Int arrayIndex in EquipmentSlotsUnderDragAndDropObjectArrayIndexes)
             {
-                if (arrayIndex.x < 0 || arrayIndex.y < 0 ||
-                    arrayIndex.x >= _equipmentGrid.GetLength(0) || arrayIndex.y >= _equipmentGrid.GetLength(1) ||
-                    !_equipmentGrid[arrayIndex.x, arrayIndex.y].IsActiveTile)
+                if (arrayIndex.x < 0 ||
+                    arrayIndex.y < 0 ||
+                    arrayIndex.x >= EquipmentTilesGrid.GetLength(0) ||
+                    arrayIndex.y >= EquipmentTilesGrid.GetLength(1) ||
+                    !EquipmentTilesGrid[arrayIndex.x, arrayIndex.y].IsActiveTile ||
+                    !EquipmentTilesGrid[arrayIndex.x, arrayIndex.y].IsEmptyTile)
                 {
-                    suitable = false;
+                    IsItemInDragAndDropSuitable = false;
                     break;
                 }
             }
 
             MarkTilesAsNotUnderItem();
-            MarkTilesAsUnderItem(suitable, itemSize);
+            MarkTilesAsUnderItem(IsItemInDragAndDropSuitable, itemSize);
         }
 
         public static void MarkTilesAsNotUnderItem()
         {
-            for (int i = 0; i < _equipmentGrid.GetLength(0); i++)
+            for (int i = 0; i < EquipmentTilesGrid.GetLength(0); i++)
             {
-                for (int j = 0; j < _equipmentGrid.GetLength(1); j++)
+                for (int j = 0; j < EquipmentTilesGrid.GetLength(1); j++)
                 {
-                    _equipmentGrid[i, j].MarkAsNotUnderItem();
+                    EquipmentTilesGrid[i, j].MarkAsNotUnderItem();
                 }
             }
         }
@@ -133,7 +136,7 @@ namespace OverMars
                 indexOffsetY = 1;
             }
 
-            foreach (Vector2Int arrayIndex in _equipmentSlotsUnderDragAndDropObjectArrayIndexes)
+            foreach (Vector2Int arrayIndex in EquipmentSlotsUnderDragAndDropObjectArrayIndexes)
             {
                 for (int i = arrayIndex.x; i < itemSize.x + arrayIndex.x - indexOffsetX; i++)
                 {
@@ -142,7 +145,7 @@ namespace OverMars
                         Color newColor = suitable ? _itemSuitableColor : _itemUnsuitableColor;
                         try
                         {
-                            _equipmentGrid[i, j].MarkAsUnderItem(newColor);
+                            EquipmentTilesGrid[i, j].MarkAsUnderItem(newColor);
                         }
                         catch { }
                     }

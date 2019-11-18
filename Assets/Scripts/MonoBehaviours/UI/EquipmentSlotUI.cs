@@ -1,13 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace OverMars
 {
     public class EquipmentSlotUI : SlotUI
     {
-        private int _id;
-        private Vector2Int _arrayIndexes;
         public bool IsUnderItem = false;
         public bool IsEmptyTile = true;
+
+        private int _id;
+        private Vector2Int _arrayIndexes;
+        private List<Vector2Int> _itemTilesIndexes = new List<Vector2Int>();
 
         public bool IsActiveTile => this._image.enabled;
         public override int Id => _id;
@@ -43,15 +46,22 @@ namespace OverMars
             _image.enabled = false;
         }
 
-        public override void SetItem(EquipmentItem equipmentItem)
+        public override void SetItem(EquipmentItem equipmentItem, List<Vector2Int> itemTilesIndexes)
         {
             EquipmentItem = equipmentItem;
+            _itemTilesIndexes = itemTilesIndexes;
             UpdateSlotUI();
         }
 
         private protected override void RemoveItem()
         {
             EquipmentItem = null;
+            foreach (Vector2Int tileIndex in _itemTilesIndexes)
+            {
+                EquipmentPanelController.EquipmentTilesGrid[tileIndex.x, tileIndex.y].IsEmptyTile = true;
+            }
+            _itemTilesIndexes = null;
+            _itemTilesIndexes = new List<Vector2Int>();
             UpdateSlotUI();
         }
 

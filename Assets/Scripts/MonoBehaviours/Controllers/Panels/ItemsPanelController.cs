@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace OverMars
 {
@@ -18,7 +19,7 @@ namespace OverMars
             for (int i = 0; i < ItemsContainer.Instance.AllEquipmentItems.Count; i++)
             {
                 ItemSlotUI itemSlotUI = Instantiate(_itemSlotUIPrefab, _itemsContainer).GetComponent<ItemSlotUI>();
-                itemSlotUI.SetItem(ItemsContainer.Instance.AllEquipmentItems[i]);
+                itemSlotUI.SetItem(ItemsContainer.Instance.AllEquipmentItems[i], new List<Vector2Int>());
             }
         }
     }
