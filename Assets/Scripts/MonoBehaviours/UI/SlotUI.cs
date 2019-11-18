@@ -8,8 +8,9 @@ namespace OverMars
     {
         [HideInInspector] public EquipmentItem EquipmentItem;
 
+        private RectTransform _imageRect;
+        private Vector2Int _defaultTileImageSize;
         private protected Image _image;
-        
         private Sprite _emptySlotSprite;
         private protected Color _emptySlotColor;
 
@@ -20,6 +21,7 @@ namespace OverMars
         private void Awake()
         {
             _image = GetComponent<Image>();
+            _imageRect = GetComponent<RectTransform>();
         }
 
         private void Start()
@@ -31,6 +33,7 @@ namespace OverMars
         {
             _emptySlotSprite = _image.sprite;
             _emptySlotColor = _image.color;
+            _defaultTileImageSize = new Vector2Int((int)_imageRect.sizeDelta.x, (int)_imageRect.sizeDelta.y);
         }
 
         public abstract void SetItem(EquipmentItem equipmentItem);
@@ -39,9 +42,19 @@ namespace OverMars
 
         private protected void UpdateSlotUI()
         {
-            _image.sprite = EquipmentItem ? EquipmentItem.Sprite : _emptySlotSprite;
-            _image.color = EquipmentItem ? Color.white : _emptySlotColor;
-            //Instantiate(itemUIPrefab, this.transform);
+            if (EquipmentItem)
+            {
+                _image.sprite = EquipmentItem.Sprite;
+                _image.color = Color.white;
+                _imageRect.sizeDelta = EquipmentItem.Sprite.rect.size;
+            }
+            else
+            {
+                _image.sprite = _emptySlotSprite;
+                _image.color = _emptySlotColor;
+                _imageRect.sizeDelta = _defaultTileImageSize;
+            }
+
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -82,21 +95,11 @@ namespace OverMars
             SlotUI slotUnderCursor = DragAndDropController.SlotUnderCursor;
             if (slotUnderCursor && slotUnderCursor.IsEquipmentSlot)
             {
+                EquipmentPanelController.SetSlotsUnderItemAreNotEmpty();
                 slotUnderCursor.SetItem(itemInContainer);
             }
 
             EquipmentPanelController.MarkTilesAsNotUnderItem();
         }
-
-        //private void ReplaceItems(SlotUI slotUnderCursor, EquipmentItem itemInContainer)
-        //{
-        //    SetItem(slotUnderCursor.EquipmentItem);
-        //    slotUnderCursor.SetItem(itemInContainer);
-        //}
-
-        //private void ReturnItem(SlotUI slotUnderCursor, EquipmentItem itemInContainer)
-        //{
-        //    slotUnderCursor.SetItem(itemInContainer);
-        //}
     }
 }

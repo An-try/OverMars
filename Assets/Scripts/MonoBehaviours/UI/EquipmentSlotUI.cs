@@ -6,10 +6,10 @@ namespace OverMars
     {
         private int _id;
         private Vector2Int _arrayIndexes;
-        private bool _isUnderItem = false;
+        public bool IsUnderItem = false;
+        public bool IsEmptyTile = true;
 
         public bool IsActiveTile => this._image.enabled;
-
         public override int Id => _id;
         public override Vector2Int ArrayIndexes => _arrayIndexes;
         public override bool IsEquipmentSlot => true;
@@ -57,13 +57,13 @@ namespace OverMars
 
         public void MarkAsUnderItem(Color newColor)
         {
-            _isUnderItem = true;
+            IsUnderItem = true;
             _image.color = newColor;
         }
 
         public void MarkAsNotUnderItem()
         {
-            _isUnderItem = false;
+            IsUnderItem = false;
             _image.color = EquipmentItem ? Color.white : _emptySlotColor;
         }
     }

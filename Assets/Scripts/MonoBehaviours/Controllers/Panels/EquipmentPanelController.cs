@@ -9,22 +9,30 @@ namespace OverMars
         [SerializeField] private Transform _shipTilesContainerUI;
         [SerializeField] private GameObject _shipTileUIPrefab;
 
-        private GridLayoutGroup _tilesContainerGrid;
-
         private static EquipmentSlotUI[,] _equipmentGrid;
 
         private static Color _itemSuitableColor = Color.green;
         private static Color _itemUnsuitableColor = Color.red;
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            _tilesContainerGrid = _shipTilesContainerUI.GetComponent<GridLayoutGroup>();
-        }
+        private static List<Vector2Int> _equipmentSlotsUnderDragAndDropObjectArrayIndexes = new List<Vector2Int>();
 
         private void Start()
         {
             RebuildTiles();
+        }
+
+        public static void SetSlotsUnderItemAreNotEmpty()
+        {
+            for (int i = 0; i < _equipmentGrid.GetLength(0); i++)
+            {
+                for (int j = 0; j < _equipmentGrid.GetLength(1); j++)
+                {
+                    if (_equipmentGrid[i, j].IsUnderItem)
+                    {
+                        _equipmentGrid[i, j].IsEmptyTile = false;
+                    }
+                }
+            }
         }
 
         #region Building ship tiles UI
@@ -36,16 +44,21 @@ namespace OverMars
             ShipItem shipItem = PlayerController.Instance.Ship.ShipItem;
             string cleanTilesCode = shipItem.CleanTilesCode;
             Vector2Int size = shipItem.Size;
-            _tilesContainerGrid.constraintCount = size.y;
+            Vector2Int starterPoint = new Vector2Int((int)_shipTilesContainerUI.localPosition.x - size.x / 2, (int)_shipTilesContainerUI.localPosition.y + size.y / 2);
 
             _equipmentGrid = new EquipmentSlotUI[size.x, size.y];
-            int tileIndex = 0;
+            int tileIndex = size.x * size.y - 1;
 
-            for (int i = 0; i < size.x; i++)
+            for (int i = size.x - 1; i >= 0; i--)
             {
-                for (int j = 0; j < size.y; j++)
+                for (int j = size.y - 1; j >= 0; j--)
                 {
+                    int imageHeight = (int)_shipTileUIPrefab.GetComponent<RectTransform>().sizeDelta.y;
+                    int imageHalfSizeY = imageHeight / 2;
+                    Vector3 newTilePosition = new Vector3((starterPoint.x + j + 1) * imageHeight - imageHalfSizeY, (starterPoint.y - i + 1) * imageHeight + imageHalfSizeY, 0);
+
                     EquipmentSlotUI equipmentSlotUI = Instantiate(_shipTileUIPrefab, _shipTilesContainerUI).GetComponent<EquipmentSlotUI>();
+                    equipmentSlotUI.transform.localPosition = newTilePosition;
                     equipmentSlotUI.SetParameters(tileIndex, new Vector2Int(i, j));
 
                     int tileCode = int.Parse(cleanTilesCode[tileIndex].ToString());
@@ -59,7 +72,7 @@ namespace OverMars
                     }
 
                     _equipmentGrid[i, j] = equipmentSlotUI;
-                    tileIndex++;
+                    tileIndex--;
                 }
             }
         }
@@ -78,8 +91,9 @@ namespace OverMars
 
         public static void CheckDragAndDropItemForSuitability(List<Vector2Int> equipmentSlotsUnderDragAndDropObjectArrayIndexes, Vector2Int itemSize)
         {
+            _equipmentSlotsUnderDragAndDropObjectArrayIndexes = equipmentSlotsUnderDragAndDropObjectArrayIndexes;
             bool suitable = true;
-            foreach (Vector2Int arrayIndex in equipmentSlotsUnderDragAndDropObjectArrayIndexes)
+            foreach (Vector2Int arrayIndex in _equipmentSlotsUnderDragAndDropObjectArrayIndexes)
             {
                 if (arrayIndex.x < 0 || arrayIndex.y < 0 ||
                     arrayIndex.x >= _equipmentGrid.GetLength(0) || arrayIndex.y >= _equipmentGrid.GetLength(1) ||
@@ -91,7 +105,7 @@ namespace OverMars
             }
 
             MarkTilesAsNotUnderItem();
-            MarkTilesAsUnderItem(suitable, equipmentSlotsUnderDragAndDropObjectArrayIndexes, itemSize);
+            MarkTilesAsUnderItem(suitable, itemSize);
         }
 
         public static void MarkTilesAsNotUnderItem()
@@ -105,7 +119,7 @@ namespace OverMars
             }
         }
 
-        private static void MarkTilesAsUnderItem(bool suitable, List<Vector2Int> equipmentSlotsUnderDragAndDropObjectArrayIndexes, Vector2Int itemSize)
+        private static void MarkTilesAsUnderItem(bool suitable, Vector2Int itemSize)
         {
             int indexOffsetX = 0;
             int indexOffsetY = 0;
@@ -119,7 +133,7 @@ namespace OverMars
                 indexOffsetY = 1;
             }
 
-            foreach (Vector2Int arrayIndex in equipmentSlotsUnderDragAndDropObjectArrayIndexes)
+            foreach (Vector2Int arrayIndex in _equipmentSlotsUnderDragAndDropObjectArrayIndexes)
             {
                 for (int i = arrayIndex.x; i < itemSize.x + arrayIndex.x - indexOffsetX; i++)
                 {
