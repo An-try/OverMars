@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e066862c2b56c4080642303fe5bddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shipItem: {fileID: 11400000, guid: 491275f0baa8ec14394940a10d1e7f8e, type: 2}
+  _shipItem: {fileID: 11400000, guid: e8fe0106363051348b9f54b54b0aeef1, type: 2}
   _shipSprite: {fileID: 1497923017131298178}
   _tilesContainer: {fileID: 6522427651906990581}
   _tilePrefab: {fileID: 5546957055228784911, guid: 73bb8023a09264145b81f5d24dad1359,

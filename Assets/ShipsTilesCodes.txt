@@ -2,12 +2,13 @@
 1 - basic tile
 2 - engine tile
 
-//Arrow Mk1    5x3    basic = 6    engine = 1
-010
-010
-010
-111
-020
+Arrow Mk1    6x6    basic = 14    engine = 2
+001100
+001100
+001100
+001100
+111111
+002200
 
 Tyler Mk1    8x6    basic = 26    engine = 4
 000100
@@ -52,6 +53,8 @@ Murder Mk1    16x7    basic = 66    engine = 9
 0122210
 0022200
 0010100
+
+//Marshal Mk1
 
 //Curator Mk1
 

@@ -10,13 +10,26 @@ namespace OverMars
         [SerializeField] private Transform _tilesContainer;
         [SerializeField] private GameObject _tilePrefab;
 
-        private Rigidbody2D _rigidbody2D;
+        public ShipTile[,] ShipTilesGrid;
 
+        private Rigidbody2D _rigidbody2D;
         private List<EquipmentItem> _equipmentItems = new List<EquipmentItem>();
 
         public ShipItem ShipItem => _shipItem;
 
-        public ShipTile[,] ShipTilesGrid;
+        #region Ship parameters
+
+        private float _mass = 0;
+        private float _minRange = Mathf.Infinity;
+        private float _maxRange = 0;
+        private float _thrustForce = 0;
+        private float _enginesMaxVelocity = 0;
+        private float _rotationForce = 0;
+        private float _enginesMaxTurnSpeed = 0;
+
+        private const float ENGINES_MAX_VALUES_MULTIPLIER = 10;
+
+        #endregion
 
         private void Awake()
         {
@@ -40,6 +53,49 @@ namespace OverMars
             RebuildTiles();
             FillShipWithEquipment();
         }
+
+        /// <summary>
+        /// Call this method when ship is instantiated and all equipment is assigned or when ship has lost some part.
+        /// </summary>
+        private void UpdateShipParameters()
+        {
+            _mass = 0;
+            _minRange = Mathf.Infinity;
+            _maxRange = 0;
+            _thrustForce = 0;
+            _enginesMaxVelocity = 0;
+            _rotationForce = 0;
+            _enginesMaxTurnSpeed = 0;
+
+            foreach (EquipmentItem equipmentItem in _equipmentItems)
+            {
+                _mass += equipmentItem.Mass;
+
+                if (equipmentItem.GetType() == typeof(EngineEquipment))
+                {
+                    EngineEquipment engineEquipment = (EngineEquipment)equipmentItem;
+                    _thrustForce += engineEquipment.ThrustForce;
+                    _rotationForce += engineEquipment.RotationForce;
+                }
+                else if (equipmentItem.GetType() == typeof(WeaponEquipment))
+                {
+                    WeaponEquipment weaponEquipment = (WeaponEquipment)equipmentItem;
+                    if (weaponEquipment.Range < _minRange)
+                    {
+                        _minRange = weaponEquipment.Range;
+                    }
+                    if (weaponEquipment.Range > _maxRange)
+                    {
+                        _maxRange = weaponEquipment.Range;
+                    }
+                }
+            }
+
+            _enginesMaxVelocity = _thrustForce * ENGINES_MAX_VALUES_MULTIPLIER;
+            _enginesMaxTurnSpeed = _rotationForce * ENGINES_MAX_VALUES_MULTIPLIER;
+        }
+
+
 
         #region Building ship tiles
 
@@ -125,6 +181,8 @@ namespace OverMars
                     }
                 }
             }
+
+            UpdateShipParameters();
         }
 
         #endregion
@@ -138,32 +196,16 @@ namespace OverMars
             float axisY = Input.GetAxis("Vertical");
             float axisX = Input.GetAxis("Horizontal");
 
-            float thrustForce = 0;
-            float rotationForce = 0;
+            ThrustForward(axisY);
+            ClampVelocity(_enginesMaxVelocity);
 
-            foreach (EquipmentItem equipmentItem in _equipmentItems)
-            {
-                if (equipmentItem.GetType() == typeof(EngineEquipment))
-                {
-                    EngineEquipment engineEquipment = (EngineEquipment)equipmentItem;
-                    thrustForce += engineEquipment.ThrustForce;
-                    rotationForce += engineEquipment.RotationForce;
-                }
-            }
-
-            float enginesMaxVelocity = thrustForce * 10;
-            float enginesMaxTurnSpeed = rotationForce * 10;
-
-            ThrustForward(axisY * thrustForce);
-            ClampVelocity(enginesMaxVelocity);
-
-            RotateShip(axisX * rotationForce);
-            ClampTurnSpeed(enginesMaxTurnSpeed);
+            RotateShip(axisX);
+            ClampTurnSpeed(_enginesMaxTurnSpeed);
         }
 
-        private void ThrustForward(float forwardForce)
+        private void ThrustForward(float axisY)
         {
-            _rigidbody2D.AddForce(transform.up * forwardForce);
+            _rigidbody2D.AddForce(transform.up * axisY * _thrustForce);
         }
 
         private void ClampVelocity(float enginesMaxVelocity)
@@ -173,9 +215,9 @@ namespace OverMars
             _rigidbody2D.velocity = new Vector2(clampMoveX, clampMoveY);
         }
 
-        private void RotateShip(float rotationForce)
+        private void RotateShip(float axisX)
         {
-            _rigidbody2D.AddTorque(-rotationForce);
+            _rigidbody2D.AddTorque(-axisX * _rotationForce);
         }
 
         private void ClampTurnSpeed(float enginesMaxTurnSpeed)
