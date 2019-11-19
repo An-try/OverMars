@@ -8,8 +8,8 @@ namespace OverMars
         [SerializeField] private float _reloadTime;
         [SerializeField] private float _range;
         [SerializeField] private float _shootingAngle;
-        [SerializeField] [Tooltip("Percent of extra damage to armor")]  [Range(-100, 100)] private float _percentOfExtraDamageToArmor;
-        [SerializeField] [Tooltip("Percent of extra damage to shields")] [Range(-100, 100)] private int _percentOfExtraDamageToShields;
+        [SerializeField] [Range(-100, 100)] private float _percentOfExtraDamageToArmor;
+        [SerializeField] [Range(-100, 100)] private int _percentOfExtraDamageToShields;
 
         private const int SECONDS_IN_MINUTE_AMOUNT = 60;
         private const int ONE_SECOND = 1;
