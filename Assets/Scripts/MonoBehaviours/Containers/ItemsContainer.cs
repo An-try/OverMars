@@ -9,9 +9,9 @@ namespace OverMars
         [SerializeField] private List<ShipItem> _shipItems;
 
         [Header("Weapons")]
-        [SerializeField] private List<PenetrationWeapon> _penetrationWeapons;
+        //[SerializeField] private List<PenetrationWeapon> _penetrationWeapons;
         [SerializeField] private List<RocketWeapon> _rocketWeapons;
-        [SerializeField] private List<LaserWeapon> _laserWeapons;
+        //[SerializeField] private List<LaserWeapon> _laserWeapons;
 
         [Header("Equipment")]
         [SerializeField] private List<ArmorEquipment> _armorEquipments;
@@ -20,9 +20,9 @@ namespace OverMars
         [SerializeField] private List<EngineEquipment> _engineEquipments;
         
         public List<ShipItem> ShipItems => _shipItems;
-        public List<PenetrationWeapon> PenetrationWeapons => _penetrationWeapons;
+        //public List<PenetrationWeapon> PenetrationWeapons => _penetrationWeapons;
         public List<RocketWeapon> RocketWeapons => _rocketWeapons;
-        public List<LaserWeapon> LaserWeapons => _laserWeapons;
+        //public List<LaserWeapon> LaserWeapons => _laserWeapons;
         public List<ArmorEquipment> ArmorEquipments => _armorEquipments;
         public List<ShieldEquipment> ShieldEquipments => _shieldEquipments;
         public List<ReactorEquipment> ReactorEquipments => _reactorEquipments;
@@ -32,9 +32,9 @@ namespace OverMars
             get
             {
                 List<EquipmentItem> equipmentItems = new List<EquipmentItem>();
-                equipmentItems.AddRange(_penetrationWeapons);
+                //equipmentItems.AddRange(_penetrationWeapons);
                 equipmentItems.AddRange(_rocketWeapons);
-                equipmentItems.AddRange(_laserWeapons);
+                //equipmentItems.AddRange(_laserWeapons);
                 equipmentItems.AddRange(_armorEquipments);
                 equipmentItems.AddRange(_shieldEquipments);
                 equipmentItems.AddRange(_reactorEquipments);
