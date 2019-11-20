@@ -12,24 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822dd391084983840b3508b6c8a61ce8, type: 3}
   m_Name: SmallGunMk1
   m_EditorClassIdentifier: 
-  _name: 
+  _name: Small gun Mk1
   _description: 
   _price: 0
   _sprite: {fileID: 0}
   _type: 0
-  _width: 0
-  _height: 0
-  _energyConsumption: 0
-  _durability: 0
+  _width: 1
+  _height: 1
+  _energyConsumptionPerSecond: 10
+  _durability: 50
   _armor: 0
   _reflection: 0
-  _mass: 0
-  _reloadTime: 0
-  _range: 0
+  _mass: 20
+  _reloadTime: 1
+  _range: 10
   _shootingAngle: 0
   _percentOfExtraDamageToArmor: 0
   _percentOfExtraDamageToShields: 0
   _damagePerAmmo: 0
   _ammoAmountPerShot: 0
   "_ammunition\u0421onsumptionPerShot": 0
-  _hitForce: 0
+  _ammoHitForce: 0
+  _noParameters: No parameters

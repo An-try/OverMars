@@ -24,5 +24,18 @@ namespace OverMars
         public float Mass => _mass;
 
         public override bool IsEquipment => true;
+
+        public override string GetInfo()
+        {
+            return base.GetInfo() +
+                   "Type: " + _type + "\n" +
+                   "Width: " + _width + "\n" +
+                   "Height: " + _height + "\n" +
+                   "Energy consumption per second: " + _energyConsumptionPerSecond + "\n" +
+                   "Durability: " + _durability + "\n" +
+                   "Armor: " + _armor + "\n" +
+                   "Reflection: " + _reflection + "\n" +
+                   "Mass: " + _mass + "\n";
+        }
     }
 }

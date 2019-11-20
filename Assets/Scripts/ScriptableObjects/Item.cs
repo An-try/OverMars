@@ -16,5 +16,12 @@ namespace OverMars
         public Sprite Sprite => _sprite;
 
         public virtual bool IsEquipment => false;
+
+        public virtual string GetInfo()
+        {
+            return "Name: " + _name + "\n" +
+                   "Description: " + _description + "\n" +
+                   "Price: " + _price + "\n";
+        }
     }
 }
