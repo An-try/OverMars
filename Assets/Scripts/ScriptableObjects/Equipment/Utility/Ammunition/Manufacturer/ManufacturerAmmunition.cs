@@ -1,18 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ManufacturerAmmunition : MonoBehaviour
+namespace OverMars
 {
-    // Start is called before the first frame update
-    void Start()
+    [CreateAssetMenu(fileName = "New ammo manufacturer", menuName = "Over Mars/Equipment/Utility/Ammunition/Ammo manufacturer")]
+    public class ManufacturerAmmunition : AmmunitionUtility
     {
-        
-    }
+        [Header("Manufacturer Ammunition")]
+        [SerializeField] private float _ammoProductionPerSecond;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public float AmmoProductionPerSecond => _ammoProductionPerSecond;
     }
 }
