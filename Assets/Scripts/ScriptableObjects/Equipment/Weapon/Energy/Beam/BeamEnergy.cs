@@ -6,8 +6,8 @@ namespace OverMars
     public class BeamEnergy : EnergyWeapon
     {
         [Header("Beam Energy")]
-        [SerializeField] private float _shotDuration;
+        [SerializeField] private float _energyСonsumptionPerSecond;
 
-        public float ShotDuration => _shotDuration;
+        public float EnergyСonsumptionPerSecond => _energyСonsumptionPerSecond;
     }
 }

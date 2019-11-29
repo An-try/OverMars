@@ -2,7 +2,7 @@
 
 namespace OverMars
 {
-    public abstract class EnergyWeapon : WeaponEquipment
+    public abstract class UtilityEquipment : EquipmentItem
     {
 
     }

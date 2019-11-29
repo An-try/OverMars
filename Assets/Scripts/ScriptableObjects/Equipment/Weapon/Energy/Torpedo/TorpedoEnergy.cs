@@ -10,10 +10,12 @@ namespace OverMars
         [SerializeField] private int _torpedosAmountPerShot;
         [SerializeField] private float _torpedoThrustForce;
         [SerializeField] private float _torpedoHitForce;
+        [SerializeField] private int _energyСonsumptionPerShot;
 
         public float DamagePerTorpedo => _damagePerTorpedo;
         public int TorpedosAmountPerShot => _torpedosAmountPerShot;
         public float TorpedoThrustForce => _torpedoThrustForce;
         public float TorpedoHitForce => _torpedoHitForce;
+        public int EnergyСonsumptionPerShot => _energyСonsumptionPerShot;
     }
 }

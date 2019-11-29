@@ -2,14 +2,12 @@
 
 namespace OverMars
 {
-    [CreateAssetMenu(fileName = "New reactor", menuName = "Over Mars/Equipment/Reactor")]
-    public class ReactorEquipment : EquipmentItem
+    public abstract class PowerUtility : UtilityEquipment
     {
-        [SerializeField] private float _energyProduction;
+        [Header("Power Utility")]
         [SerializeField] private float _explosionDamage;
         [SerializeField] private float _explosionRadius;
 
-        public float EnergyProduction => _energyProduction;
         public float ExplosionDamage => _explosionDamage;
         public float ExplosionRadius => _explosionRadius;
     }
