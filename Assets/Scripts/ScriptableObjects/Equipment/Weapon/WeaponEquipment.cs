@@ -8,6 +8,7 @@ namespace OverMars
         [SerializeField] private float _reloadTime;
         [SerializeField] private float _range;
         [SerializeField] private float _shootingAngle;
+        [SerializeField] private float _turnRate;
         [SerializeField] [Range(-100, 100)] private float _percentOfExtraDamageToArmor;
         [SerializeField] [Range(-100, 100)] private int _percentOfExtraDamageToShields;
 
@@ -19,6 +20,7 @@ namespace OverMars
         public string RateOfFirePerMinute => (SECONDS_IN_MINUTE_AMOUNT / _reloadTime).ToString("0.00") + " shots/min";
         public float Range => _range;
         public float ShootingAngle => _shootingAngle;
+        public float TurnRate => _turnRate;
         public float PercentOfExtraDamageToArmor => _percentOfExtraDamageToArmor;
         public int PercentOfExtraDamageToShields => _percentOfExtraDamageToShields;
     }

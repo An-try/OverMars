@@ -11,6 +11,7 @@ namespace OverMars
         [SerializeField] private GameObject _tilePrefab;
 
         public ShipTile[,] ShipTilesGrid;
+        public List<ShipTile> WorkingTiles { get; private set; } = new List<ShipTile>();
 
         private Rigidbody2D _rigidbody2D;
         private List<EquipmentItem> _equipmentItems = new List<EquipmentItem>();
@@ -19,6 +20,7 @@ namespace OverMars
 
         #region Ship parameters
 
+        private float _durability = 0;
         private float _mass = 0;
         private float _minRange = Mathf.Infinity;
         private float _maxRange = 0;
@@ -59,6 +61,7 @@ namespace OverMars
         /// </summary>
         private void UpdateShipParameters()
         {
+            _durability = 0;
             _mass = 0;
             _minRange = Mathf.Infinity;
             _maxRange = 0;
@@ -69,6 +72,7 @@ namespace OverMars
 
             foreach (EquipmentItem equipmentItem in _equipmentItems)
             {
+                _durability += equipmentItem.Durability;
                 _mass += equipmentItem.Mass;
 
                 if (equipmentItem.GetType() == typeof(EngineEquipment))
@@ -93,6 +97,40 @@ namespace OverMars
 
             _enginesMaxVelocity = _thrustForce * ENGINES_MAX_VALUES_MULTIPLIER;
             _enginesMaxTurnSpeed = _rotationForce * ENGINES_MAX_VALUES_MULTIPLIER;
+        }
+
+        public float GetParameterValue(EntityParameters entityParameter)
+        {
+            switch (entityParameter)
+            {
+                case EntityParameters.Durability:
+                    return _durability;
+                case EntityParameters.Speed:
+                    return _thrustForce;
+                case EntityParameters.None:
+                    Debug.LogError("Enum \"SearchParameter\": \"" + entityParameter + "\" is not correct!"); // TODO: check this output
+                    return 0;
+                default:
+                    Debug.LogError("Enum \"SearchParameter\": \"" + entityParameter + "\" is not correct!"); // TODO: check this output
+                    return 0;
+            }
+        }
+
+        private void UpdateWorkingTiles()
+        {
+            WorkingTiles = null;
+            WorkingTiles = new List<ShipTile>();
+
+            for (int i = 0; i < ShipTilesGrid.GetLength(0); i++)
+            {
+                for (int j = 0; j < ShipTilesGrid.GetLength(1); j++)
+                {
+                    if (!ShipTilesGrid[i, j].IsEmptyTile)
+                    {
+                        WorkingTiles.Add(ShipTilesGrid[i, j]);
+                    }
+                }
+            }
         }
 
 
@@ -182,6 +220,7 @@ namespace OverMars
                 }
             }
 
+            UpdateWorkingTiles();
             UpdateShipParameters();
         }
 
