@@ -18,6 +18,7 @@ namespace OverMars
         [Header("References for scaling")]
         [SerializeField] private ScrollRect _equipmentScrollRect;
         [SerializeField] private Transform[] _objectsToScale;
+        [SerializeField] [Range(MIN_SCALE, MAX_SCALE)] private float _defaultScale;
 
 #pragma warning restore 0649
 
@@ -47,6 +48,15 @@ namespace OverMars
         private void Start()
         {
             RebuildTiles();
+            ScaleObjectsToDefaultValue();
+        }
+
+        private void ScaleObjectsToDefaultValue()
+        {
+            foreach (Transform objectToScale in _objectsToScale)
+            {
+                objectToScale.localScale = new Vector3(_defaultScale, _defaultScale, _defaultScale);
+            }
         }
 
         private void Update()

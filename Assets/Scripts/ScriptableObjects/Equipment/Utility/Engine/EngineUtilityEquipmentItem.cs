@@ -7,12 +7,17 @@ namespace OverMars
     {
 #pragma warning disable 0649
 
-        [SerializeField] private float _thrustForce;
-        [SerializeField] private float _rotationForce;
+        [Header("Engine Utility Equipment Item")]
+        [SerializeField] private float _maxThrustForce;
+        [SerializeField] private float _maxRotationForce;
+        [SerializeField] private float _energyConsumptionPerOneThrustForce;
+        [SerializeField] private float _energyConsumptionPerOneRotationForce;
 
 #pragma warning restore 0649
 
-        public float ThrustForce => _thrustForce;
-        public float RotationForce => _rotationForce;
+        public float MaxThrustForce => _maxThrustForce;
+        public float MaxRotationForce => _maxRotationForce;
+        public float EnergyConsumptionPerOneThrustForce => _energyConsumptionPerOneThrustForce;
+        public float EnergyConsumptionPerOneRotationForce => _energyConsumptionPerOneRotationForce;
     }
 }

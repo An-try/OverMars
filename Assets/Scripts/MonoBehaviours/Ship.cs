@@ -22,6 +22,7 @@ namespace OverMars
 
         public ShipItem ShipItem => _shipItem;
 
+
         #region Ship parameters
 
         private float _durability = 0;
@@ -36,6 +37,7 @@ namespace OverMars
         private const float ENGINES_MAX_VALUES_MULTIPLIER = 10;
 
         #endregion
+
 
         private void Awake()
         {
@@ -82,8 +84,8 @@ namespace OverMars
                 if (equipmentItem.GetType() == typeof(EngineUtilityEquipmentItem))
                 {
                     EngineUtilityEquipmentItem engine = (EngineUtilityEquipmentItem)equipmentItem;
-                    _thrustForce += engine.ThrustForce;
-                    _rotationForce += engine.RotationForce;
+                    //_thrustForce += engine.ThrustForce;
+                    //_rotationForce += engine.RotationForce;
                 }
                 else if (equipmentItem.GetType() == typeof(WeaponEquipmentItem))
                 {
