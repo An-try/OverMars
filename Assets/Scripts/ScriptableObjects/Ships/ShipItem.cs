@@ -5,9 +5,14 @@ namespace OverMars
     [CreateAssetMenu(fileName = "New ship", menuName = "Over Mars/Ship")]
     public class ShipItem : Item
     {
+#pragma warning disable 0649
+
+        [Header("Ship Item")]
         [SerializeField] private int _width;
         [SerializeField] private int _height;
         [SerializeField] private string _tilesCode;
+
+#pragma warning restore 0649
 
         public int Width => IsTilesCodeProper() ? _width : 0;
         public int Height => IsTilesCodeProper() ? _height : 0;

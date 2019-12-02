@@ -5,10 +5,14 @@ namespace OverMars
 {
     public class Ship : MonoBehaviour
     {
+#pragma warning disable 0649
+
         [SerializeField] private ShipItem _shipItem;
         [SerializeField] private SpriteRenderer _shipSprite;
         [SerializeField] private Transform _tilesContainer;
         [SerializeField] private GameObject _tilePrefab;
+
+#pragma warning restore 0649
 
         public ShipTile[,] ShipTilesGrid;
         public List<ShipTile> WorkingTiles { get; private set; } = new List<ShipTile>();
@@ -81,16 +85,16 @@ namespace OverMars
                     _thrustForce += engineEquipment.ThrustForce;
                     _rotationForce += engineEquipment.RotationForce;
                 }
-                else if (equipmentItem.GetType() == typeof(WeaponEquipment))
+                else if (equipmentItem.GetType() == typeof(WeaponEquipmentItem))
                 {
-                    WeaponEquipment weaponEquipment = (WeaponEquipment)equipmentItem;
-                    if (weaponEquipment.Range < _minRange)
+                    WeaponEquipmentItem weaponEquipmentItem = (WeaponEquipmentItem)equipmentItem;
+                    if (weaponEquipmentItem.Range < _minRange)
                     {
-                        _minRange = weaponEquipment.Range;
+                        _minRange = weaponEquipmentItem.Range;
                     }
-                    if (weaponEquipment.Range > _maxRange)
+                    if (weaponEquipmentItem.Range > _maxRange)
                     {
-                        _maxRange = weaponEquipment.Range;
+                        _maxRange = weaponEquipmentItem.Range;
                     }
                 }
             }

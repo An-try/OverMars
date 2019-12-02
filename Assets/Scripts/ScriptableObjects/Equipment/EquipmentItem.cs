@@ -4,6 +4,8 @@ namespace OverMars
 {
     public abstract class EquipmentItem : Item
     {
+#pragma warning disable 0649
+
         [Header("Equipment Item")]
         [SerializeField] private EquipmentTypes _type;
         [SerializeField] private int _width;
@@ -13,6 +15,8 @@ namespace OverMars
         [SerializeField] private float _armor;
         [SerializeField] private float _reflection;
         [SerializeField] private float _mass;
+
+#pragma warning restore 0649
 
         public EquipmentTypes Type => _type;
         public int Width => _width;

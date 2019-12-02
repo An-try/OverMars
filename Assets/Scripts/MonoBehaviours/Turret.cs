@@ -6,15 +6,15 @@ namespace OverMars
 {
     public abstract class Turret : MonoBehaviour
     {
-        [SerializeField] private AudioClip _shootingSound;
+#pragma warning disable 0649
 
-        [SerializeField] private protected WeaponEquipment _weaponEquipment; // Item for this turret
-
+        [SerializeField] private protected WeaponEquipmentItem _weaponEquipmentItem; // Item for this turret
         [SerializeField] private GameObject _turretBase; // Base platform of the turret that rotates horizontally
         [SerializeField] private protected GameObject _turretCannons; // Cannons of the turret that totates vertically
-
         [SerializeField] private protected GameObject _shootPlace;
         [SerializeField] private protected GameObject _shootAnimationPrefab;
+
+#pragma warning restore 0649
 
         private protected AudioSource _audioSource;
         private protected List<string> _targetTags; // Targets for this turret
@@ -52,13 +52,13 @@ namespace OverMars
 
         public virtual void SetTurretParameters()
         {
-            _turnRate = _weaponEquipment.TurnRate;
-            _turretRange = _weaponEquipment.Range;
-            _maxCooldown = _weaponEquipment.ReloadTime;
+            _turnRate = _weaponEquipmentItem.TurnRate;
+            _turretRange = _weaponEquipmentItem.Range;
+            _maxCooldown = _weaponEquipmentItem.ReloadTime;
             _currentCooldown = _maxCooldown;
 
-            _rightTraverse = _weaponEquipment.ShootingAngle / 2f;
-            _leftTraverse = _weaponEquipment.ShootingAngle / 2f;
+            _rightTraverse = _weaponEquipmentItem.ShootingAngle / 2f;
+            _leftTraverse = _weaponEquipmentItem.ShootingAngle / 2f;
 
             // Check this turret tag
             switch (transform.root.tag)

@@ -6,9 +6,13 @@ namespace OverMars
 {
     public class EquipmentPanelController : PanelCommon<EquipmentPanelController>
     {
+#pragma warning disable 0649
+
         [SerializeField] private Transform _shipTilesContainerUI;
         [SerializeField] private Image _shipImageComponent;
         [SerializeField] private GameObject _shipTileUIPrefab;
+
+#pragma warning restore 0649
 
         public static EquipmentSlotUI[,] EquipmentTilesGrid;
         public static List<Vector2Int> EquipmentSlotsUnderDragAndDropObjectArrayIndexes = new List<Vector2Int>();

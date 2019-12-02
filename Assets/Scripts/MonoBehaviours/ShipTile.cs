@@ -4,8 +4,12 @@ namespace OverMars
 {
     public class ShipTile : MonoBehaviour
     {
+#pragma warning disable 0649
+
         [SerializeField] private Transform _spriteContainer;
-        
+
+#pragma warning restore 0649
+
         private SpriteRenderer _spriteRenderer;
         private BoxCollider2D _boxCollider2D;
 

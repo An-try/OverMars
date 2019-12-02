@@ -5,8 +5,12 @@ namespace OverMars
 {
     public class ItemsPanelController : PanelCommon<ItemsPanelController>
     {
+#pragma warning disable 0649
+
         [SerializeField] private Transform _itemsContainer;
         [SerializeField] private GameObject _itemSlotUIPrefab;
+
+#pragma warning restore 0649
 
         private void Start()
         {

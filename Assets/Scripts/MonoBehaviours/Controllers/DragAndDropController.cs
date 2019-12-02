@@ -7,12 +7,16 @@ namespace OverMars
 {
     public class DragAndDropController : Singleton<DragAndDropController>
     {
-        public static SlotUI SlotUnderCursor;
+#pragma warning disable 0649
 
         [SerializeField] private GameObject _dragAndDropOblect;
+
+#pragma warning restore 0649
+
+        public static SlotUI SlotUnderCursor;
+
         private static CanvasGroup _dragAndDropGroup;
         private static Image _dragAndDropImage;
-
         private static EquipmentItem _itemInContainer;
 
         private List<Vector2Int> _equipmentSlotsUnderDragAndDropObjectArrayIndexes = new List<Vector2Int>();

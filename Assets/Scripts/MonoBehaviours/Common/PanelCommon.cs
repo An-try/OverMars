@@ -5,7 +5,11 @@ namespace OverMars
 {
     public abstract class PanelCommon<T> : Singleton<T> where T : MonoBehaviour
     {
+#pragma warning disable 0649
+
         [SerializeField] private CanvasGroup _panelGroup;
+
+#pragma warning restore 0649
 
         private Sequence _panelInteractionAnimation;
         private float _animationTime = 0.25f;
