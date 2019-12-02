@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Arrow
   _description: Ship "Arrow"
+  _price: 0
   _sprite: {fileID: 21300000, guid: 9fe0aab7cd3354e4e943dc31077f7f56, type: 3}
-  _width: 3
-  _height: 5
-  _tilesCode: 010 010 010 111 020
+  _width: 6
+  _height: 6
+  _tilesCode: 001100 001100 001100 001100 111111 002200
