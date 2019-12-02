@@ -2,8 +2,8 @@
 
 namespace OverMars
 {
-    [CreateAssetMenu(fileName = "New engine", menuName = "Over Mars/Equipment/Engine")]
-    public class EngineEquipment : EquipmentItem
+    [CreateAssetMenu(fileName = "New engine", menuName = "Over Mars/Equipment/Utility/Engine")]
+    public class EngineUtilityEquipmentItem : UtilityEquipmentItem
     {
 #pragma warning disable 0649
 

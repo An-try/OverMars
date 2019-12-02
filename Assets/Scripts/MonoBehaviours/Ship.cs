@@ -79,11 +79,11 @@ namespace OverMars
                 _durability += equipmentItem.Durability;
                 _mass += equipmentItem.Mass;
 
-                if (equipmentItem.GetType() == typeof(EngineEquipment))
+                if (equipmentItem.GetType() == typeof(EngineUtilityEquipmentItem))
                 {
-                    EngineEquipment engineEquipment = (EngineEquipment)equipmentItem;
-                    _thrustForce += engineEquipment.ThrustForce;
-                    _rotationForce += engineEquipment.RotationForce;
+                    EngineUtilityEquipmentItem engine = (EngineUtilityEquipmentItem)equipmentItem;
+                    _thrustForce += engine.ThrustForce;
+                    _rotationForce += engine.RotationForce;
                 }
                 else if (equipmentItem.GetType() == typeof(WeaponEquipmentItem))
                 {
