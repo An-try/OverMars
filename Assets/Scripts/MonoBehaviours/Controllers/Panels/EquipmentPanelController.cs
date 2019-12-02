@@ -13,6 +13,7 @@ namespace OverMars
         [SerializeField] private Image _shipImageComponent;
         [SerializeField] private GameObject _shipTileUIPrefab;
         [SerializeField] private RectTransform _equipmentContentRect;
+        [SerializeField] private RectTransform _backgroundRect;
 
         [Header("References for scaling")]
         [SerializeField] private ScrollRect _equipmentScrollRect;
@@ -38,8 +39,8 @@ namespace OverMars
         private bool _alreadyPressed = false;
 
         private const float MOUSE_SCROLL_MULTIPLIER = 2;
-        private const float MIN_SCALE = 0.2f;
-        private const float MAX_SCALE = 3f;
+        private const float MIN_SCALE = 0.15f;
+        private const float MAX_SCALE = 1f;
 
         #endregion
 
@@ -57,6 +58,7 @@ namespace OverMars
 #endif
 
             ClampEquipmentContentPosition();
+            MoveBackgroundByEquipmentTiles();
         }
 
         public static void SetSlotsUnderItemAreNotEmpty()
@@ -301,6 +303,16 @@ namespace OverMars
         {
             _equipmentContentRect.anchoredPosition = new Vector2(Mathf.Clamp(_equipmentContentRect.anchoredPosition.x, -Screen.width / 2, Screen.width / 2),
                                                                  Mathf.Clamp(_equipmentContentRect.anchoredPosition.y, -Screen.height / 2, Screen.height / 2));
+        }
+
+        #endregion
+
+
+        #region Moving background by equipment tiles
+
+        private void MoveBackgroundByEquipmentTiles()
+        {
+            _backgroundRect.anchoredPosition = _equipmentContentRect.anchoredPosition * 0.05f;
         }
 
         #endregion
