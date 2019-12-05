@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a55a5bcffc212e498fb332fa330a5a8, type: 3}
-  m_Name: BigEngineMk3
+  m_Name: BigArmoredEngineMk1
   m_EditorClassIdentifier: 
-  _name: Big engine Mk3
-  _description: BigEngineMk3
+  _name: Big armored engine Mk1
+  _description: BigArmoredEngineMk1
   _price: 0
-  _sprite: {fileID: 21300000, guid: 3c3bb9ba166d60b409c3595e40e44415, type: 3}
+  _sprite: {fileID: 21300000, guid: 7a43117be90f33540a53f3b2749398e3, type: 3}
   _type: 4
   _width: 2
   _height: 3
-  _mass: 70
-  _energyConsumptionPerSecond: 20
-  _durability: 400
-  _armor: 25
-  _reflection: 25
-  _maxThrustForce: 1100
-  _maxRotationForce: 900
-  _energyConsumptionPerOneThrustForce: 0.12
-  _energyConsumptionPerOneRotationForce: 0.12
+  _mass: 100
+  _energyConsumptionPerSecond: 25
+  _durability: 500
+  _armor: 50
+  _reflection: 50
+  _maxThrustForce: 700
+  _maxRotationForce: 600
+  _energyConsumptionPerOneThrustForce: 0.1
+  _energyConsumptionPerOneRotationForce: 0.1

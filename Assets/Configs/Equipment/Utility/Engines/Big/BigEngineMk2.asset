@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a55a5bcffc212e498fb332fa330a5a8, type: 3}
   m_Name: BigEngineMk2
   m_EditorClassIdentifier: 
-  _name: BigEngineMk2
-  _description: 
+  _name: Big engine Mk2
+  _description: BigEngineMk2
   _price: 0
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: b54ded1496a9dd04cb2da810fd2354ac, type: 3}
   _type: 4
-  _width: 0
-  _height: 0
-  _energyConsumptionPerSecond: 0
-  _durability: 0
-  _armor: 0
-  _reflection: 0
-  _mass: 0
-  _maxThrustForce: 0
-  _maxRotationForce: 0
-  _energyConsumptionPerOneThrustForce: 0
-  _energyConsumptionPerOneRotationForce: 0
+  _width: 2
+  _height: 3
+  _mass: 65
+  _energyConsumptionPerSecond: 20
+  _durability: 400
+  _armor: 25
+  _reflection: 25
+  _maxThrustForce: 900
+  _maxRotationForce: 700
+  _energyConsumptionPerOneThrustForce: 0.11
+  _energyConsumptionPerOneRotationForce: 0.11

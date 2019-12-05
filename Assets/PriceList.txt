@@ -1,5 +1,5 @@
 Size = Width * Height
 
-Base equipment: BASE_PRICE =   (Size * 100)   +   (Size / ECPS * 100)   +   (Durability / Size)   +   (Armor / Size) + Reflection * 
+Base equipment: EQUIPMENT_PRICE =   (Size * 100)   +   (Size / ECPS * 100)   +   (Durability / Size)   +   (Armor * Size)   +   (Reflection * Size)   +   (Size / Mass * 100)
 
-Engines: ENGINE_PRICE = BASE_PRICE + 
+Engines: ENGINE_PRICE = EQUIPMENT_PRICE + 
